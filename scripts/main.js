@@ -268,24 +268,39 @@ function initMobileMenu() {
         // Toggle submenus on click
         const categories = document.querySelectorAll('.dropdown-category');
         categories.forEach(cat => {
-            cat.addEventListener('click', (e) => {
-                const subMenu = cat.querySelector('.sub-dropdown-menu');
-                if (subMenu) {
-                    // Prevent link navigation if it has a submenu
-                    e.preventDefault();
-                    e.stopPropagation();
-                    
-                    // Close other submenus first
-                    categories.forEach(c => {
-                        if (c !== cat) {
-                            c.querySelector('.sub-dropdown-menu')?.classList.remove('active');
-                            c.classList.remove('mobile-active');
-                        }
-                    });
+            const titleLink = cat.querySelector('.category-title');
+            const subMenu = cat.querySelector('.sub-dropdown-menu');
+            
+            if (titleLink && subMenu) {
+                titleLink.addEventListener('click', (e) => {
+                    if (window.innerWidth <= 768) {
+                        e.preventDefault();
+                        e.stopPropagation();
+                        
+                        // Close other submenus first
+                        categories.forEach(c => {
+                            if (c !== cat) {
+                                c.querySelector('.sub-dropdown-menu')?.classList.remove('active');
+                                c.classList.remove('mobile-active');
+                            }
+                        });
 
-                    subMenu.classList.toggle('active');
-                    cat.classList.toggle('mobile-active');
-                }
+                        subMenu.classList.toggle('active');
+                        cat.classList.toggle('mobile-active');
+                    }
+                });
+            }
+
+            // Close menu when a subcategory is clicked
+            const subLinks = cat.querySelectorAll('.sub-dropdown-menu a');
+            subLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        dropdownMenu?.classList.remove('active');
+                        subMenu?.classList.remove('active');
+                        cat.classList.remove('mobile-active');
+                    }
+                });
             });
         });
 
