@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css">
+    <title>Magasin</title>
+</head>
+
+<body>
+    <header>
+        <div class="first-column">
+            <img src="photo/Logo.png" alt="error" class="logo">
+            <div class="catalog-container">
+                <button class="catalog" onclick="window.location.href='index.html'">Catalog</button>
+                <div class="dropdown-menu">
+                    <div class="dropdown-category">
+                        <a href="index.html" class="category-title" style="text-decoration:none; color:inherit;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-layout-grid">
+                                <rect width="7" height="7" x="3" y="3" rx="1" />
+                                <rect width="7" height="7" x="14" y="3" rx="1" />
+                                <rect width="7" height="7" x="14" y="14" rx="1" />
+                                <rect width="7" height="7" x="3" y="14" rx="1" />
+                            </svg>
+                            All products
+                        </a>
+                    </div>
+                    <div class="dropdown-category">
+                        <a href="index.html?search=food" class="category-title"
+                            style="text-decoration:none; color:inherit;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-apple">
+                                <path
+                                    d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z" />
+                                <path d="M10 2c1 .5 2 2 2 5" />
+                            </svg>
+                            Food
+                        </a>
+                        <div class="sub-dropdown-menu">
+                            <a href="index.html?search=macarons">Macarons</a>
+                            <a href="index.html?search=café">Café</a>
+                            <a href="index.html?search=miel">Miel</a>
+                        </div>
+                    </div>
+                    <div class="dropdown-category">
+                        <a href="index.html?search=electronics" class="category-title"
+                            style="text-decoration:none; color:inherit;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-laptop">
+                                <path
+                                    d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16" />
+                            </svg>
+                            Electronics
+                        </a>
+                        <div class="sub-dropdown-menu">
+                            <a href="index.html?search=macbook">MacBook</a>
+                            <a href="index.html?search=casque">Casque Audio</a>
+                            <a href="index.html?search=montre">Montre</a>
+                        </div>
+                    </div>
+                    <div class="dropdown-category">
+                        <a href="index.html?search=clothing" class="category-title"
+                            style="text-decoration:none; color:inherit;">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="lucide lucide-shirt">
+                                <path
+                                    d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z" />
+                            </svg>
+                            Clothing
+                        </a>
+                        <div class="sub-dropdown-menu">
+                            <a href="index.html?search=t-shirt">T-Shirt</a>
+                            <a href="index.html?search=veste">Veste en Jean</a>
+                            <a href="index.html?search=denim">Denim</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="second-column">
+            <form action="index.html" method="get" id="search" style="position:relative;">
+                <input type="search" name="search" id="search-input" placeholder="Search..." autocomplete="off">
+                <div class="autocomplete-list" id="autocomplete-list"></div>
+                <button type="submit" style="background:none; border:none; cursor:pointer;" class="icon"><svg
+                        xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="lucide lucide-search-icon lucide-search">
+                        <path d="m21 21-4.34-4.34" />
+                        <circle cx="11" cy="11" r="8" />
+                    </svg></button>
+            </form>
+            <a href="#" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-user-icon lucide-user">
+                    <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                    <circle cx="12" cy="7" r="4" />
+                </svg></a>
+            <a href="#" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-heart-icon lucide-heart">
+                    <path
+                        d="M2 9.5a5.5 5.5 0 0 1 9.591-3.676.56.56 0 0 0 .818 0A5.49 5.49 0 0 1 22 9.5c0 2.29-1.5 4-3 5.5l-5.492 5.313a2 2 0 0 1-3 .019L5 15c-1.5-1.5-3-3.2-3-5.5" />
+                </svg>
+            </a>
+            <a href="cart.html" class="icon"> <!--Cart-->
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="lucide lucide-shopping-cart-icon lucide-shopping-cart">
+                    <circle cx="8" cy="21" r="1" />
+                    <circle cx="19" cy="21" r="1" />
+                    <path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12" />
+                </svg>
+                <div class="quantity">0</div>
+            </a>
+        </div>
+    </header>
+
+
+    <main>
+        <div class="slider-container">
+            <div class="slider-track">
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1607082348824-0a96f2a4b9da?auto=format&fit=crop&q=80&w=1200"
+                        alt="Sale 1">
+                    <div class="slide-content">
+                        <h2 style="color: white; margin-bottom: 10px; font-size: 28px;">Jusqu'à -50% sur l'Électronique
+                        </h2>
+                        <p style="color: white; font-size: 18px;">Découvrez nos offres exceptionnelles !</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=1200"
+                        alt="Food Sale">
+                    <div class="slide-content">
+                        <h2 style="color: white; margin-bottom: 10px; font-size: 28px;">Arrivage de produits frais</h2>
+                        <p style="color: white; font-size: 18px;">Savourez la qualité à petit prix.</p>
+                    </div>
+                </div>
+                <div class="slide">
+                    <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&q=80&w=1200"
+                        alt="Clothing collection">
+                    <div class="slide-content">
+                        <h2 style="color: white; margin-bottom: 10px; font-size: 28px;">Nouvelle Collection Vêtements
+                        </h2>
+                        <p style="color: white; font-size: 18px;">Préparez-vous pour la saison.</p>
+                    </div>
+                </div>
+            </div>
+            <button class="slider-btn prev">❮</button>
+            <button class="slider-btn next">❯</button>
+            <div class="slider-dots"></div>
+        </div>
+
+        <div class="items">
+
+        </div>
+    </main>
+
+    <footer class="footer">
+
+        <div class="liens">
+            <div class="footer-logo">
+                <a href="#"><img src="photo/Logo.png" alt="error" class="logo"></a>
+            </div>
+            <div class="footer-liens">
+                <a href="#" class="lien">
+                    <h3>Home</h3>
+                </a>
+                <a href="#"></a>
+                <a href="#" class="lien">
+                    <h3>About Us</h3>
+                </a>
+                <a href="#" class="lien">
+                    <h3>Services</h3>
+                </a>
+                <a href="#" class="lien">
+                    <h3>Contact</h3>
+                </a>
+            </div>
+        </div>
+        <div class="socials">
+
+            <div class="reseaux">
+                <h3 class="follow">Follow us </h3>
+
+                <div class="reseaux_icons">
+                    <a href="#" class="reseau"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-instagram-icon lucide-instagram">
+                            <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+                            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+                            <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+                        </svg></a>
+                    <a href="#" class="reseau"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-youtube-icon lucide-youtube">
+                            <path
+                                d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+                            <path d="m10 15 5-3-5-3z" />
+                        </svg></a>
+                    <a href="#" class="reseau"><svg xmlns="http://www.w3.org/2000/svg" width="35" height="35"
+                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                            stroke-linecap="round" stroke-linejoin="round"
+                            class="lucide lucide-facebook-icon lucide-facebook">
+                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
+                        </svg></a>
+                </div>
+            </div>
+            <div class="subscribe">
+                <h3 class="follow">Subscribe on our promotions</h3>
+                <div class="email">
+                    <input type="email" id="contact" placeholder="Enter your email">
+                    <button type="submit" class="catalog">Subscribe</button>
+                </div>
+            </div>
+        </div>
+        <p class="copyright">&copy; 2025 Magasin. All rights reserved.</p>
+    </footer>
+    <!-- Add to cart toast container -->
+    <div id="cart-toast-container" class="toast-hidden">
+        <div class="toast-content">
+            <span class="toast-message">Item added to cart!</span>
+            <div class="toast-quantity">
+                <button class="toast-qty-btn minus">-</button>
+                <span class="toast-qty-val">1</span>
+                <button class="toast-qty-btn plus">+</button>
+            </div>
+            <button class="toast-close">✕</button>
+        </div>
+    </div>
+
+    <script type="module" src="scripts/main.js"></script>
+</body>
+
+</html>

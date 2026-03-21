@@ -73,15 +73,23 @@ export function removeFromCart(itemId){
 
 
 
-// marche pas
-export function suprimeAllProducts (product){
-    const allProducts = document.querySelectorAll('.item');
+export function suprimeAllProducts () {
+    cart = [];
+    saveToStorage();
+}
 
-    allProducts.forEach(product => {
-        product.remove();
+export function updateQuantityInCart(productId, newQuantity) {
+    let matchingItem;
+    cart.forEach(cartItem => {
+        if (productId === cartItem.productId) {
+            matchingItem = cartItem;
+        };
     });
 
-    saveToStorage();
-    updateQuantity();
+    if (matchingItem && newQuantity > 0) {
+        matchingItem.quantity = newQuantity;
+        saveToStorage();
+    } else if (matchingItem && newQuantity <= 0) {
+        removeFromCart(productId);
+    }
 }
-// fin de fonction
