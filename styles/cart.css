@@ -355,13 +355,21 @@ main h1 {
 
 .item {
     display: flex;
-    justify-content: space-around;
+    justify-content: flex-start;
     align-items: center;
+    gap: 20px;
     border-bottom: 1px solid rgba(0, 0, 0, 0.064);
     padding-bottom: 14px;
+    padding-left: 15px;
 }
 
-
+.choisir-tous-input input[type="checkbox"],
+.item-checkbox {
+    width: 15px;
+    height: 15px;
+    cursor: pointer;
+    accent-color: #6ebe70;
+}
 
 .image-column {
     display: flex;
@@ -380,23 +388,28 @@ main h1 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    min-width: 180px;
-    max-width: 200px;
+    flex: 1;
     overflow-wrap: anywhere;
     font-size: 16px;
-    margin-left: 10px;
+    margin-left: 20px;
 }
 
 .price-column {
-    font-size: 15px;
-    min-width: 90px;
-    max-width: 90px;
-    font-weight: 600;
+    font-size: 16px;
+    width: 120px;
+    font-weight: 700;
+    margin-left: 50px;
+    text-align: left;
 }
 
 .input-column {
-    min-width: 90px;
-    max-width: 95px;
+    width: 100px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 7px;
+    margin-left: 50px;
+    margin-right: 20px;
 }
 
 .item-checkbox {
@@ -628,8 +641,8 @@ main h1 {
 
     .choisir-tous-input input[type="checkbox"],
     .item-checkbox {
-        width: 22px;
-        height: 22px;
+        width: 15px;
+        height: 15px;
         cursor: pointer;
         accent-color: #6ebe70;
     }
@@ -706,8 +719,8 @@ main h1 {
 
     .item {
         flex-wrap: wrap;
-        gap: 10px;
-        padding: 15px;
+        gap: 5px;
+        padding: 15px 20px 15px 0;
     }
 
     .image-column img {
@@ -731,6 +744,7 @@ main h1 {
         text-align: right;
         margin-top: 5px;
         font-size: 18px;
+        margin-left: 0;
     }
 
     .input-column {
@@ -742,6 +756,8 @@ main h1 {
         align-items: center;
         margin-top: 10px;
         gap: 12px;
+        margin-left: 0;
+        margin-right: 0;
     }
 
     .quantity-button {
