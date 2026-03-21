@@ -282,4 +282,52 @@ if (selectAllCheckbox) {
 }
 renderCart(); // Premier affichage du panier
 initSearch();
+initMobileMenu();
+
+function initMobileMenu() {
+    const catalogContainer = document.querySelector('.catalog-container');
+    const catalogBtn = catalogContainer?.querySelector('.catalog');
+    const dropdownMenu = catalogContainer?.querySelector('.dropdown-menu');
+    
+    if (window.innerWidth <= 768) {
+        if (catalogBtn && dropdownMenu) {
+            catalogBtn.onclick = (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('active');
+                    if (!dropdownMenu.classList.contains('active')) {
+                        document.querySelectorAll('.sub-dropdown-menu').forEach(s => s.classList.remove('active'));
+                        document.querySelectorAll('.dropdown-category').forEach(c => c.classList.remove('mobile-active'));
+                    }
+                }
+            };
+        }
+
+        const categories = document.querySelectorAll('.dropdown-category');
+        categories.forEach(cat => {
+            cat.addEventListener('click', (e) => {
+                const subMenu = cat.querySelector('.sub-dropdown-menu');
+                if (subMenu) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    categories.forEach(c => {
+                        if (c !== cat) {
+                            c.querySelector('.sub-dropdown-menu')?.classList.remove('active');
+                            c.classList.remove('mobile-active');
+                        }
+                    });
+                    subMenu.classList.toggle('active');
+                    cat.classList.toggle('mobile-active');
+                }
+            });
+        });
+
+        document.addEventListener('click', () => {
+            dropdownMenu?.classList.remove('active');
+            document.querySelectorAll('.sub-dropdown-menu').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dropdown-category').forEach(c => c.classList.remove('mobile-active'));
+        });
+    }
+}
 

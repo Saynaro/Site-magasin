@@ -93,9 +93,35 @@
 
             <!-- Right: Buy Box -->
             <div class="product-buy-box">
-                <h2 id="product-price">€0.00</h2>
-                <p class="delivery-info">Livraison demain !</p>
+                <div class="buy-box-price-row">
+                    <h2 id="product-price">€0.00</h2>
+                    <span class="stock-badge">✓ En stock</span>
+                </div>
+
+                <div class="buy-box-meta">
+                    <div class="buy-meta-row">
+                        <span class="buy-meta-icon">🚚</span>
+                        <span id="delivery-text">Livraison gratuite dès 50€</span>
+                    </div>
+                    <div class="buy-meta-row">
+                        <span class="buy-meta-icon">📦</span>
+                        <span>Livraison demain si commandé avant 18h</span>
+                    </div>
+                    <div class="buy-meta-row">
+                        <span class="buy-meta-icon">🔄</span>
+                        <span>Retours gratuits sous 30 jours</span>
+                    </div>
+                    <div class="buy-meta-row">
+                        <span class="buy-meta-icon">🔒</span>
+                        <span>Paiement sécurisé — Visa, Mastercard, PayPal</span>
+                    </div>
+                </div>
+
+                <hr class="buy-box-divider">
+
                 <div id="buy-action-container"></div>
+
+                <button class="button-buy-now">📦 Acheter maintenant</button>
             </div>
 
         </div>

@@ -233,11 +233,67 @@ function setupToastListeners() {
             }
         });
     }
-
     if (btnClose) {
         btnClose.addEventListener('click', () => {
             document.getElementById('cart-toast-container').classList.add('toast-hidden');
             if (toastTimeout) clearTimeout(toastTimeout);
+        });
+    }
+}
+
+function initMobileMenu() {
+    const catalogContainer = document.querySelector('.catalog-container');
+    const catalogBtn = catalogContainer?.querySelector('.catalog');
+    const dropdownMenu = catalogContainer?.querySelector('.dropdown-menu');
+    
+    // Only apply click logic on mobile/tablet
+    if (window.innerWidth <= 768) {
+        // Toggle main menu on click
+        if (catalogBtn && dropdownMenu) {
+            // Override inline onclick attribute specifically for mobile
+            catalogBtn.onclick = (e) => {
+                if (window.innerWidth <= 768) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                    dropdownMenu.classList.toggle('active');
+                    
+                    if (!dropdownMenu.classList.contains('active')) {
+                        document.querySelectorAll('.sub-dropdown-menu').forEach(s => s.classList.remove('active'));
+                        document.querySelectorAll('.dropdown-category').forEach(c => c.classList.remove('mobile-active'));
+                    }
+                }
+            };
+        }
+
+        // Toggle submenus on click
+        const categories = document.querySelectorAll('.dropdown-category');
+        categories.forEach(cat => {
+            cat.addEventListener('click', (e) => {
+                const subMenu = cat.querySelector('.sub-dropdown-menu');
+                if (subMenu) {
+                    // Prevent link navigation if it has a submenu
+                    e.preventDefault();
+                    e.stopPropagation();
+                    
+                    // Close other submenus first
+                    categories.forEach(c => {
+                        if (c !== cat) {
+                            c.querySelector('.sub-dropdown-menu')?.classList.remove('active');
+                            c.classList.remove('mobile-active');
+                        }
+                    });
+
+                    subMenu.classList.toggle('active');
+                    cat.classList.toggle('mobile-active');
+                }
+            });
+        });
+
+        // Close everything when clicking outside
+        document.addEventListener('click', () => {
+            dropdownMenu?.classList.remove('active');
+            document.querySelectorAll('.sub-dropdown-menu').forEach(s => s.classList.remove('active'));
+            document.querySelectorAll('.dropdown-category').forEach(c => c.classList.remove('mobile-active'));
         });
     }
 }
@@ -251,5 +307,6 @@ document.addEventListener('DOMContentLoaded', () => {
     setupToastListeners();
     renderProducts();
     updateQuantity();
+    initMobileMenu();
 });
 
