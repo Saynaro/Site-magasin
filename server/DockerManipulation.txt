@@ -1,0 +1,14 @@
+// START DOCKER
+docker-compose up -d
+
+// STOP DOCKER
+docker-compose stop 
+
+// TURN OFF DOCKER
+docker-compose down
+
+// SHOW IF IT WORKS
+docker ps
+
+// SHOW ALL WHAT DOES DOCKER
+docker-compose logs -f db
