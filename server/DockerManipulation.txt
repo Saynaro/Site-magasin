@@ -12,3 +12,6 @@ docker ps
 
 // SHOW ALL WHAT DOES DOCKER
 docker-compose logs -f db
+
+
+ADD PGbouncer if there is a probleme with many connection
