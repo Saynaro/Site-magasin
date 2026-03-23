@@ -21,6 +21,6 @@ app.use(express.json());  // Middleware to parse JSON bodies from incoming reque
 app.use(express.urlencoded({ extended: true }));      // Middleware to parse URL-encoded bodies (like form in html)
 
 
-app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
+// app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
 
 export default app;

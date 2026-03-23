@@ -1,5 +1,5 @@
 import app from './app.js';
-import { connectDB, disconnectDB } from './db.js';
+import { connectDB, disconnectDB } from './config/db.js';
 
 const PORT = process.env.PORT || 5000;
 
@@ -15,11 +15,28 @@ const startServer = async () => {
 
         // Handling shutdown signals (Ctrl+C / Docker stop)
         const gracefulShutdown = async () => {
-            console.log('Shutting down gracefully...');
-            await disconnectDB();
-            server.close(() => {
-                console.log('HTTP server closed');
-                process.exit(0);
+            console.log('Signal for exit received. Starts closing...');
+
+            const forceExitTimeout = setTimeout(() => {
+                console.error('Shutdown timeout reached, forcing exit..');
+                process.exit(1);
+            }, 30000);
+
+            // 1. Stop HTTP server before
+            server.close(async () => {
+                console.log('HTTP server closed. There is no new requests.');
+                
+                try {
+                    // 2. Close Database just after closing server
+                    await disconnectDB();
+                    console.log('DATABASE connection closed successfully.');
+                    
+                    clearTimeout(forceExitTimeout);
+                    process.exit(0);
+                } catch (err) {
+                    console.error('Error while exit DATABASE:', err);
+                    process.exit(1);
+                }
             });
         };
 
