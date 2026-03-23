@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { PrismaClient } from '@prisma/client';
 import { PrismaPg } from '@prisma/adapter-pg';
 import pg from 'pg';
@@ -14,6 +15,17 @@ const prisma = new PrismaClient({
         : ["error"]
 });
 
+
+// const connectDB = async () => {
+//     try {
+//         console.log("Checking connection...");
+//         const res = await pool.query('SELECT NOW()'); // Прямой запрос к драйверу
+//         console.log("Connection confirmed at:", res.rows[0].now);
+//     } catch (error) {
+//         console.error("CRITICAL DATABASE ERROR:", error); // Это покажет реальную причину
+//         process.exit(1);
+//     }
+// };
 const connectDB = async () => {
     try {
         // IN Prisma 7 recomended verify pool connection 
@@ -33,4 +45,9 @@ const disconnectDB = async () => {
     await pool.end(); // IMPORTANT to close pg driver's pool 
 };
 
-export { prisma, connectDB, disconnectDB };
+export { prisma, pool, connectDB, disconnectDB };
+// I make import { pool } if i want to make sql requests  in controllers
+// pool.query("SELECT * FROM")
+
+// I import { prisma } to controllers
+// if i want to make PRISMA requests prisma.findUnique() or prisma.queryRaw("SELECT * FROM")

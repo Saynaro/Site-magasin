@@ -2,7 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import cookieParser from "cookie-parser";
 import { config } from "dotenv";
-
+import { prisma } from './config/db.js';
 
 config();
 const app = express()
@@ -22,5 +22,25 @@ app.use(express.urlencoded({ extended: true }));      // Middleware to parse URL
 
 
 // app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
+
+
+
+// JUST FOR CHECK THE SERVER IS WORKING
+app.get('/health', async (req, res) => {
+    try {
+        // Make the empty request via Prisma
+        // In Prisma 7 it will go into adapter
+        const result = await prisma.$queryRaw`SELECT NOW() as now`; 
+        
+        res.json({ 
+            status: 'ok', 
+            server_time: result[0].now, // in Prisma result — it is object array
+            message: 'All systems operational via Prisma Client' 
+        });
+    } catch (err) {
+        console.error('Prisma Health check failed:', err);
+        res.status(500).json({ status: 'error', message: err.message });
+    }
+});
 
 export default app;
