@@ -1,0 +1,10 @@
+{
+    "compilerOptions": {
+        "module": "ESNext",
+        "moduleResolution": "Bundler",
+        "target": "ES2023",
+        "checkJs": true,
+        "allowJs": true
+    },
+    "exclude": ["node_modules", "dist"]
+}
