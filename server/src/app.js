@@ -4,6 +4,8 @@ import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import { prisma } from './config/db.js';
 
+import authRoutes from "./routes/authRoutes.js"
+
 config();
 const app = express()
 
@@ -21,26 +23,32 @@ app.use(express.json());  // Middleware to parse JSON bodies from incoming reque
 app.use(express.urlencoded({ extended: true }));      // Middleware to parse URL-encoded bodies (like form in html)
 
 
-// app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
+app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
 
 
 
-// JUST FOR CHECK THE SERVER IS WORKING
-app.get('/health', async (req, res) => {
-    try {
-        // Make the empty request via Prisma
-        // In Prisma 7 it will go into adapter
-        const result = await prisma.$queryRaw`SELECT NOW() as now`; 
+
+
+
+
+
+
+// // JUST FOR CHECK THE SERVER IS WORKING
+// app.get('/health', async (req, res) => {
+//     try {
+//         // Make the empty request via Prisma
+//         // In Prisma 7 it will go into adapter
+//         const result = await prisma.$queryRaw`SELECT NOW() as now`; 
         
-        res.json({ 
-            status: 'ok', 
-            server_time: result[0].now, // in Prisma result — it is object array
-            message: 'All systems operational via Prisma Client' 
-        });
-    } catch (err) {
-        console.error('Prisma Health check failed:', err);
-        res.status(500).json({ status: 'error', message: err.message });
-    }
-});
+//         res.json({ 
+//             status: 'ok', 
+//             server_time: result[0].now, // in Prisma result — it is object array
+//             message: 'All systems operational via Prisma Client' 
+//         });
+//     } catch (err) {
+//         console.error('Prisma Health check failed:', err);
+//         res.status(500).json({ status: 'error', message: err.message });
+//     }
+// });
 
 export default app;

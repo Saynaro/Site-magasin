@@ -510,7 +510,10 @@ header {
 #cart-toast-container {
     position: fixed;
     bottom: 30px;
-    right: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+    max-width: 90%;
     background-color: #333;
     color: white;
     padding: 15px 20px;
@@ -773,8 +776,6 @@ header {
     }
 
     #cart-toast-container {
-        left: 10px;
-        right: 10px;
         bottom: 20px;
         width: auto;
     }

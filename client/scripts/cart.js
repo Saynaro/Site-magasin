@@ -1,3 +1,4 @@
+import './login.js';
 import { cart, removeFromCart, suprimeAllProducts, updateQuantityInCart } from '../data/cart.js';
 import { products } from '../data/products.js';
 import { initSearch } from './search.js';
@@ -349,3 +350,22 @@ function initMobileMenu() {
     }
 }
 
+document.addEventListener('DOMContentLoaded', () => {
+    const btnCheckout = document.getElementById('btn-checkout');
+    if (btnCheckout) {
+        btnCheckout.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                if (window.showLoginModal) window.showLoginModal();
+                return;
+            }
+            const checkedIds = getCheckedProductIds();
+            if (checkedIds.length === 0) {
+                if(window.showGlobalToast) window.showGlobalToast("Veuillez sélectionner au moins un article pour continuer.");
+                return;
+            }
+            localStorage.setItem('selectedForPayment', JSON.stringify(checkedIds));
+            window.location.href = 'payment.html';
+        });
+    }
+});

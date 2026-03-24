@@ -1,0 +1,240 @@
+app.get('/products', async (req, res) => {
+  try {
+    let {
+      search = '',
+      order = 'asc',
+      minPrice,
+      maxPrice,
+      categoryId,
+      cursor,
+      limit = 8,
+    } = req.query;
+
+    limit = parseInt(limit);
+
+    const allowedOrder = ['asc', 'desc'];
+    if (!allowedOrder.includes(order)) order = 'asc';
+
+    // 🔎 фильтры
+    const where = {
+      AND: [
+        search
+          ? {
+              name: {
+                contains: search,
+                mode: 'insensitive',
+              },
+            }
+          : {},
+
+        minPrice
+          ? {
+              priceCents: {
+                gte: parseInt(minPrice),
+              },
+            }
+          : {},
+
+        maxPrice
+          ? {
+              priceCents: {
+                lte: parseInt(maxPrice),
+              },
+            }
+          : {},
+
+        categoryId
+          ? {
+              categoryId: parseInt(categoryId),
+            }
+          : {},
+      ],
+    };
+
+    const products = await prisma.product.findMany({
+      where,
+
+      // 🔥 ВАЖНО: стабильная сортировка
+      orderBy: [
+        { priceCents: order },
+        { id: 'asc' }, // 👈 стабилизирует порядок
+      ],
+
+      take: limit,
+
+      ...(cursor && {
+        cursor: {
+          id: cursor, // 👈 string (cuid)
+        },
+        skip: 1,
+      }),
+
+      include: {
+        category: true,
+      },
+    });
+
+    // 👉 следующий курсор
+    const nextCursor =
+      products.length === limit
+        ? products[products.length - 1].id
+        : null;
+
+    res.json({
+      data: products,
+      nextCursor,
+    });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ error: 'server error' });
+  }
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Shop</title>
+</head>
+<body>
+
+<h1>Магазин</h1>
+
+<input type="text" id="search" placeholder="Поиск...">
+
+<input type="number" id="minPrice" placeholder="Мин цена (в центах)">
+<input type="number" id="maxPrice" placeholder="Макс цена (в центах)">
+
+<select id="sort">
+  <option value="price_asc">Цена ↑</option>
+  <option value="price_desc">Цена ↓</option>
+</select>
+
+<!-- категория -->
+<input type="number" id="categoryId" placeholder="Category ID">
+
+<div id="products"></div>
+
+<div id="loader">Загрузка...</div>
+
+<script>
+  let cursor = null;
+  let isLoading = false;
+  let hasMore = true;
+
+  const container = document.getElementById('products');
+  const loader = document.getElementById('loader');
+
+  const searchInput = document.getElementById('search');
+  const minPriceInput = document.getElementById('minPrice');
+  const maxPriceInput = document.getElementById('maxPrice');
+  const sortSelect = document.getElementById('sort');
+  const categoryInput = document.getElementById('categoryId');
+
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && hasMore && !isLoading) {
+      loadProducts();
+    }
+  });
+
+  observer.observe(loader);
+
+  async function loadProducts(reset = false) {
+    if (isLoading) return;
+
+    isLoading = true;
+
+    if (reset) {
+      cursor = null;
+      hasMore = true;
+      container.innerHTML = '';
+    }
+
+    const search = searchInput.value;
+    const minPrice = minPriceInput.value;
+    const maxPrice = maxPriceInput.value;
+    const categoryId = categoryInput.value;
+
+    const sort = sortSelect.value;
+
+    let sortBy = 'priceCents';
+    let order = sort === 'price_desc' ? 'desc' : 'asc';
+
+    const query = new URLSearchParams({
+      search,
+      minPrice,
+      maxPrice,
+      categoryId,
+      sortBy,
+      order,
+      ...(cursor && { cursor }),
+    });
+
+    const res = await fetch(`http://localhost:3000/products?${query}`);
+    const result = await res.json();
+
+    renderProducts(result.data);
+
+    cursor = result.nextCursor;
+
+    if (!cursor) {
+      hasMore = false;
+      loader.innerText = 'Нет больше товаров';
+    }
+
+    isLoading = false;
+  }
+
+  function renderProducts(products) {
+    const html = products.map(p => `
+      <div style="border:1px solid #ccc; margin:10px; padding:10px;">
+        <img src="${p.image}" width="100"/>
+        <h3>${p.name}</h3>
+        <p>${(p.priceCents / 100).toFixed(2)} €</p>
+        <small>${p.category.name}</small>
+      </div>
+    `).join('');
+
+    container.insertAdjacentHTML('beforeend', html);
+  }
+
+  function resetAndLoad() {
+    loadProducts(true);
+  }
+
+  searchInput.addEventListener('input', debounce(resetAndLoad, 500));
+  minPriceInput.addEventListener('input', resetAndLoad);
+  maxPriceInput.addEventListener('input', resetAndLoad);
+  sortSelect.addEventListener('change', resetAndLoad);
+  categoryInput.addEventListener('input', resetAndLoad);
+
+  function debounce(fn, delay) {
+    let timeout;
+    return (...args) => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => fn(...args), delay);
+    };
+  }
+
+  loadProducts();
+</script>
+
+</body>
+</html>

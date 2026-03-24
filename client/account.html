@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mon compte - Magasin</title>
+    <link rel="stylesheet" href="./styles/main.css">
+    <link rel="stylesheet" href="./styles/account.css">
+</head>
+<body style="background-color: #fff;">
+    <header style="border-bottom: 1px solid #e0e0e0; margin-bottom: 0;">
+        <div class="first-column">
+            <a href="index.html"><img src="photo/Logo.png" alt="error" class="logo"></a>
+            <div class="catalog-container" style="display:none;"></div> <!-- hidden on this page, or we could leave it -->
+        </div>
+        <div class="second-column">
+            <a href="index.html" class="icon" title="Retour à l'accueil">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-home"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+            </a>
+            <a href="cart.html" class="icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-shopping-cart-icon lucide-shopping-cart"><circle cx="8" cy="21" r="1"/><circle cx="19" cy="21" r="1"/><path d="M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12"/></svg>
+                <div class="quantity">0</div>
+            </a>
+        </div>
+    </header>
+
+    <main class="account-container">
+        <h1>Votre compte</h1>
+        
+        <div class="profile-header">
+            <div class="avatar-wrapper">
+                <img src="photo/Logo.png" id="user-avatar" alt="Avatar">
+                <input type="file" id="avatar-input" accept="image/*" style="display:none;">
+                <button class="change-avatar-btn" onclick="document.getElementById('avatar-input').click()">Changer</button>
+            </div>
+            <div class="profile-info">
+                <h2 id="user-name">Saina Rokhalid</h2>
+                <p id="user-email">saina@example.com</p>
+                <button class="logout-btn" id="logout-btn">Déconnexion</button>
+            </div>
+        </div>
+
+        <div class="account-grid">
+            <a href="orders.html" class="account-card">
+                <div class="card-icon"><img src="https://cdn-icons-png.flaticon.com/512/3500/3500833.png" alt="📦" onerror="this.src='photo/Logo.png'"></div>
+                <div class="card-content">
+                    <h3>Vos commandes</h3>
+                    <p>Suivre, retourner ou acheter à nouveau</p>
+                </div>
+            </a>
+            <a href="security.html" class="account-card">
+                <div class="card-icon"><img src="https://cdn-icons-png.flaticon.com/512/2916/2916315.png" alt="🔒" onerror="this.src='photo/Logo.png'"></div>
+                <div class="card-content">
+                    <h3>Connexion & sécurité</h3>
+                    <p>Modifier l'adresse e-mail, le nom et le numéro de téléphone mobile</p>
+                </div>
+            </a>
+            <a href="contact.html" class="account-card">
+                <div class="card-icon"><img src="https://cdn-icons-png.flaticon.com/512/906/906324.png" alt="🎧" onerror="this.src='photo/Logo.png'"></div>
+                <div class="card-content">
+                    <h3>Nous contacter</h3>
+                    <p>Contacter notre service client par téléphone ou par chat</p>
+                </div>
+            </a>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright" style="text-align:center; padding: 20px;">&copy; 2026 Magasin. Tous droits réservés.</p>
+    </footer>
+
+    <script type="module" src="./scripts/login.js"></script>
+    <script type="module" src="./scripts/account.js"></script>
+</body>
+</html>

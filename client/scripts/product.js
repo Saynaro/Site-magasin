@@ -1,3 +1,4 @@
+import './login.js';
 import { products, reviews, users } from '../data/products.js';
 import { cart, addToCart, updateQuantityInCart } from '../data/cart.js';
 import { initSearch } from './search.js';
@@ -164,13 +165,16 @@ document.addEventListener('DOMContentLoaded', () => {
 function renderBuyBox() {
     const container = document.getElementById('buy-action-container');
     const cartItem = cart.find(c => c.productId === product.id);
+    const buyNowBtn = `<button id="btn-buy-now" style="background:#005bff; color:white; border:none; padding:12px; border-radius:8px; cursor:pointer; width:100%; margin-top:10px; font-size:16px; font-weight:bold;">Acheter maintenant</button>`;
+
     if (cartItem && cartItem.quantity > 0) {
         container.innerHTML = `
         <div class="grid-qty-changer">
             <button class="grid-qty-btn minus" id="btn-minus">-</button>
             <span class="grid-qty-val">${cartItem.quantity}</span>
             <button class="grid-qty-btn plus" id="btn-plus">+</button>
-        </div>`;
+        </div>
+        ${buyNowBtn}`;
         document.getElementById('btn-plus').addEventListener('click', () => {
             updateQuantityInCart(product.id, cartItem.quantity + 1);
             renderBuyBox(); updateGlobalCartQuantity();
@@ -180,12 +184,28 @@ function renderBuyBox() {
             renderBuyBox(); updateGlobalCartQuantity();
         });
     } else {
-        container.innerHTML = `<button class="button-add-to-cart" id="btn-add">Add to cart</button>`;
+        container.innerHTML = `<button class="button-add-to-cart" id="btn-add">Add to cart</button>${buyNowBtn}`;
         document.getElementById('btn-add').addEventListener('click', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                if (window.showLoginModal) window.showLoginModal();
+                return;
+            }
             addToCart(product.id);
             renderBuyBox(); updateGlobalCartQuantity();
         });
     }
+
+    document.getElementById('btn-buy-now').addEventListener('click', () => {
+        if (localStorage.getItem('isLoggedIn') !== 'true') {
+            if (window.showLoginModal) window.showLoginModal();
+            return;
+        }
+        if (!cartItem || cartItem.quantity === 0) {
+            addToCart(product.id);
+        }
+        localStorage.setItem('selectedForPayment', JSON.stringify([product.id]));
+        window.location.href = 'payment.html';
+    });
 }
 
 function updateGlobalCartQuantity() {

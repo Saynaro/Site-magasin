@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./styles/main.css"> <!-- For header styling -->
+    <link rel="stylesheet" href="./styles/payment.css">
+    <title>Paiement - Magasin</title>
+</head>
+<body style="background-color: #f5f5f7;">
+    <header style="border-bottom: 1px solid #e0e0e0;">
+        <div class="first-column" style="display:flex; align-items:center;">
+            <a href="index.html"><img src="photo/Logo.png" alt="error" class="logo"></a>
+            <h2 style="margin-left: 20px; font-weight:600; font-size: 20px;">Paiement sécurisé</h2>
+        </div>
+        <div class="second-column">
+            <a href="#" class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-icon lucide-user"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></a>
+        </div>
+    </header>
+
+    <main class="payment-container">
+        <div class="payment-left">
+            <div class="checkout-section">
+                <h2 class="section-title">1. Adresse de livraison</h2>
+                <div class="form-grid">
+                    <input type="text" placeholder="Nom complet" id="fullname" class="pay-input" style="grid-column: 1 / -1;">
+                    <input type="text" placeholder="Adresse complète" id="address" class="pay-input" style="grid-column: 1 / -1;">
+                    <input type="text" placeholder="Ville" id="city" class="pay-input">
+                    <input type="text" placeholder="Code postal" id="zip" class="pay-input">
+                    <input type="text" placeholder="Pays" id="country" class="pay-input" value="France" style="grid-column: 1 / -1;">
+                </div>
+            </div>
+
+            <div class="checkout-section">
+                <h2 class="section-title">2. Mode de paiement</h2>
+                <div class="card-form">
+                    <div class="card-icons" style="display: flex; gap: 10px; margin-bottom: 15px;">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" height="30">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/4/41/Visa_Logo.png" alt="Visa" height="25" style="object-fit:contain;">
+                    </div>
+                    <input type="text" placeholder="Numéro de la carte" id="card-number" class="pay-input" maxlength="19" style="width: 100%; margin-bottom:15px; box-sizing:border-box;">
+                    <div class="form-grid-2">
+                        <input type="text" placeholder="MM/AA" id="card-expiry" class="pay-input" maxlength="5">
+                        <input type="password" placeholder="CVC" id="card-cvc" class="pay-input" maxlength="3">
+                    </div>
+                    <input type="text" placeholder="Nom sur la carte" id="card-name" class="pay-input" style="width: 100%; margin-top:15px; box-sizing:border-box;">
+                </div>
+            </div>
+            
+            <button class="btn-pay" id="btn-pay-submit">Payer <span id="btn-pay-amount">0.00 €</span></button>
+        </div>
+
+        <div class="payment-right">
+            <h2 class="section-title">Résumé de la commande</h2>
+            <div id="payment-items-summary" class="payment-items-list">
+                <!-- Items injected via JS -->
+            </div>
+            <div class="payment-totals">
+                <div class="total-row"><p>Articles</p><p id="summary-items-price">0.00 €</p></div>
+                <div class="total-row"><p>Livraison</p><p id="summary-delivery">2.99 €</p></div>
+                <div class="total-row final-total"><p>Total à payer</p><p id="summary-total">0.00 €</p></div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p class="copyright" style="text-align:center; padding: 20px;">&copy; 2026 Magasin. Paiement 100% sécurisé.</p>
+    </footer>
+
+    <!-- Include login modal script for header user icon -->
+    <script type="module" src="./scripts/login.js"></script>
+    <script type="module" src="./scripts/payment.js"></script>
+</body>
+</html>

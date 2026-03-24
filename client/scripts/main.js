@@ -1,3 +1,4 @@
+import './login.js';
 import {products} from '../data/products.js';
 import {cart, addToCart, updateQuantityInCart, removeFromCart} from '../data/cart.js';
 import {initSearch} from './search.js';
@@ -119,6 +120,10 @@ function renderProducts() {
     // Attach listeners
     document.querySelectorAll('.button-add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
+            if (localStorage.getItem('isLoggedIn') !== 'true') {
+                if (window.showLoginModal) window.showLoginModal();
+                return;
+            }
             const productId = button.dataset.productId;
             addToCart(productId);
             updateQuantity();
