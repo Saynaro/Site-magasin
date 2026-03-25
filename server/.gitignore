@@ -1,1 +1,9 @@
 postgres_data/
+.env
+node_modules/
+.DS_Store
+Thumbs.db
+dist/
+DockerManipulation.txt
+CREATE_ORDER
+creation-order-by.txt
