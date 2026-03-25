@@ -587,6 +587,70 @@ header {
     color: white;
 }
 
+
+/* ─── SORTING & PAGINATION ─── */
+.sorting-container {
+    width: 85%;
+    margin: 20px auto 0;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    font-size: 14px;
+}
+
+#sort-select {
+    padding: 8px 12px;
+    border: 2px solid #6ebe70;
+    border-radius: 8px;
+    background-color: white;
+    font-size: 14px;
+    cursor: pointer;
+    outline: none;
+}
+
+#sort-select:focus {
+    border-color: #54ae58;
+}
+
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 40px auto;
+    width: 85%;
+}
+
+.page-btn {
+    padding: 8px 16px;
+    border: 2px solid #6ebe70;
+    background-color: white;
+    color: #6ebe70;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    min-width: 45px;
+}
+
+.page-btn:hover {
+    background-color: #6ebe70;
+    color: white;
+}
+
+.page-btn.active {
+    background-color: #6ebe70;
+    color: white;
+}
+
+.page-btn:disabled {
+    border-color: #ddd;
+    color: #999;
+    cursor: not-allowed;
+    background-color: #f9f9f9;
+}
+
 /* ─── RESPONSIVE DESIGN (main.css) ─── */
 
 @media (max-width: 1024px) {

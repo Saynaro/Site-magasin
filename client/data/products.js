@@ -63,6 +63,415 @@ export const products = [
         ]
     },
     {
+        id: '1011',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1012',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1013',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1014',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1015',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1016',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1017',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    }, {
+        id: '1018',
+        name: 'MacBook Pro 16" M3 Max',
+        category: 'Electronics',
+        subcategory: 'macbook',
+        priceCents: 349900,
+        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
+            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Couleur',
+                type: 'color',
+                options: [
+                    { value: 'Gris Sidéral', color: '#636366' },
+                    { value: 'Argent', color: '#e0e0e0' }
+                ]
+            },
+            {
+                label: 'Mémoire RAM',
+                type: 'text',
+                options: [
+                    { value: '36 Go' },
+                    { value: '48 Go' },
+                    { value: '128 Go' }
+                ]
+            },
+            {
+                label: 'Stockage',
+                type: 'text',
+                options: [
+                    { value: '512 Go' },
+                    { value: '1 To' },
+                    { value: '2 To' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Processeur', value: 'Apple M3 Max' },
+            { label: 'RAM', value: '48 Go' },
+            { label: 'Stockage', value: '1 To SSD' },
+            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
+            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
+            { label: 'Poids', value: '2.14 kg' },
+            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
+            { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    },
+    {
         id: '102',
         name: 'Casque Audio Sony WH-1000XM5',
         category: 'Electronics',

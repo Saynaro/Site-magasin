@@ -1,14 +1,20 @@
 import express from 'express';
 import { authMiddleware } from '../middleware/authMiddleware.js';
 import { adminMiddleware } from '../middleware/adminMiddleware.js';
-import { createBanner, deleteProduct } from '../controllers/adminController.js';
+
+import { addToCart, deleteFromCart, getMyCart,  } from '../controllers/cartControllers.js';
 
 const router = express.Router();
 
-// Маршруты, доступные ТОЛЬКО админам
-// Сначала проверяем, что это ВООБЩЕ юзер, а потом — что он АДМИН
-router.post('/banners', authMiddleware, adminMiddleware, createBanner);
-router.delete('/products/:id', authMiddleware, adminMiddleware, deleteProduct);
+
+// https://localhost:3000/cart/
+router.get("/", authMiddleware, getMyCart);
+
+// https://localhost:3000/cart/add
+router.post("/add", authMiddleware, addToCart);
+
+// https://localhost:3000/cart/delete
+router.delete("/delete", authMiddleware, deleteFromCart);
 
 export default router;
 

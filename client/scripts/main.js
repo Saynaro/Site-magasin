@@ -1,14 +1,26 @@
+/**
+ * Main application script for Magasin e-commerce.
+ * Handles product rendering, filtering (search), sorting, pagination,
+ * sliding banner, and shopping cart UI interactions.
+ */
+
 import './login.js';
 import {products} from '../data/products.js';
-import {cart, addToCart, updateQuantityInCart, removeFromCart} from '../data/cart.js';
+import {cart, addToCart, updateQuantityInCart} from '../data/cart.js';
 import {initSearch} from './search.js';
 
+// Global variables for toast notifications and pagination state
 let toastTimeout;
 let currentToastProductId = null;
+let currentPage = 1;
+const itemsPerPage = 6; // Number of products to display per page
 
-// ========================
-// Slider Logic
-// ========================
+/**
+ * ========================
+ * Slider Logic
+ * ========================
+ * Initializes the image slider on the homepage.
+ */
 function initSlider() {
     const track = document.querySelector('.slider-track');
     if (!track) return;
@@ -19,7 +31,7 @@ function initSlider() {
 
     if (slides.length === 0) return;
 
-    // Create dots
+    // Create navigation dots dynamically based on number of slides
     slides.forEach((_, i) => {
         const dot = document.createElement('div');
         dot.classList.add('dot');
@@ -30,6 +42,10 @@ function initSlider() {
     const dots = Array.from(dotsNav.children);
     let currentIndex = 0;
 
+    /**
+     * Moves the slider track to the specified slide index.
+     * @param {number} index - Index of the slide to show.
+     */
     function moveToSlide(index) {
         track.style.transform = 'translateX(-' + index * 100 + '%)';
         dots.forEach(d => d.classList.remove('active'));
@@ -37,6 +53,7 @@ function initSlider() {
         currentIndex = index;
     }
 
+    // Event listeners for manual navigation buttons
     nextBtn.addEventListener('click', () => {
         let nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
         moveToSlide(nextIndex);
@@ -47,49 +64,72 @@ function initSlider() {
         moveToSlide(prevIndex);
     });
 
+    // Dot navigation listeners
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => moveToSlide(index));
     });
 
-    // Auto slide
+    // Automatic slide transition every 5 seconds
     setInterval(() => {
         let nextIndex = currentIndex === slides.length - 1 ? 0 : currentIndex + 1;
         moveToSlide(nextIndex);
     }, 5000);
 }
 
-// ========================
-// Product Rendering
-// ========================
+/**
+ * ========================
+ * Product Rendering Logic
+ * ========================
+ * Filters, sorts, and paginates products, then renders them to the DOM.
+ */
 function renderProducts() {
     let productHTML = '';
     
-    // Parse search parameters
+    // 1. Parse search parameters from URL
     const urlParams = new URLSearchParams(window.location.search);
     const searchQuery = urlParams.get('search')?.toLowerCase() || '';
 
-    // Filter products
-    const filteredProducts = products.filter(p => {
+    // 2. Filter products based on search query (name, description, category)
+    let filteredProducts = products.filter(p => {
         if (!searchQuery) return true;
         const query = searchQuery.toLowerCase();
         
-        // Exact category or subcategory
         if (p.category.toLowerCase() === query) return true;
         if (p.subcategory && p.subcategory.toLowerCase() === query) return true;
 
-        // Fallback for search bar text
         return p.name.toLowerCase().includes(query) || p.description.toLowerCase().includes(query);
     });
 
+    // 3. Apply Sorting
+    const sortValue = document.getElementById('sort-select')?.value || 'default';
+    if (sortValue === 'price-asc') {
+        filteredProducts.sort((a, b) => a.priceCents - b.priceCents);
+    } else if (sortValue === 'price-desc') {
+        filteredProducts.sort((a, b) => b.priceCents - a.priceCents);
+    }
+
+    // 4. Handle Empty Results
     if (filteredProducts.length === 0) {
         document.querySelector('.items').innerHTML = `<p style="grid-column: 1/-1; text-align: center; font-size: 18px;">Aucun produit trouvé pour "${searchQuery}"</p>`;
+        document.getElementById('pagination').innerHTML = '';
         return;
     }
 
-    filteredProducts.forEach(product => {
+    // 5. Apply Pagination
+    const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    // Ensure currentPage is within bounds if filters changed
+    if (currentPage > totalPages) currentPage = 1;
+    
+    const start = (currentPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedProducts = filteredProducts.slice(start, end);
+
+    // 6. Generate HTML for filtered/sorted/paginated products
+    paginatedProducts.forEach(product => {
         const cartItem = cart.find(c => c.productId === product.id);
         
         let actionHTML;
+        // Show quantity controls if item is in cart, otherwise show "Add to cart" button
         if (cartItem && cartItem.quantity > 0) {
             actionHTML = `
             <div class="grid-qty-changer">
@@ -105,7 +145,7 @@ function renderProducts() {
         productHTML += `
         <div class="item" style="position: relative;">
             <a href="product.html?id=${product.id}" class="items-title">
-                <img src="${product.image}" alt="error">
+                <img src="${product.image}" alt="${product.name}">
                 <h3 style="margin-top: 10px;">${product.name}</h3>
             </a>
             <p style="color: #6ebe70; font-size: 14px; margin: 5px 0;">${product.category}</p>
@@ -115,9 +155,76 @@ function renderProducts() {
         `;
     });
 
+    // Update the products grid
     document.querySelector('.items').innerHTML = productHTML;
 
-    // Attach listeners
+    // 7. Render Pagination Controls
+    renderPagination(totalPages);
+
+    // 8. Attach event listeners to newly rendered elements
+    attachProductEventListeners();
+}
+
+/**
+ * Renders pagination buttons (prev, page numbers, next).
+ * @param {number} totalPages - Total number of pages.
+ */
+function renderPagination(totalPages) {
+    const paginationEl = document.getElementById('pagination');
+    if (!paginationEl) return;
+    
+    if (totalPages <= 1) {
+        paginationEl.innerHTML = '';
+        return;
+    }
+
+    let paginationHTML = `
+        <button class="page-btn prev" ${currentPage === 1 ? 'disabled' : ''}>❮</button>
+    `;
+
+    for (let i = 1; i <= totalPages; i++) {
+        paginationHTML += `
+            <button class="page-btn num ${i === currentPage ? 'active' : ''}" data-page="${i}">${i}</button>
+        `;
+    }
+
+    paginationHTML += `
+        <button class="page-btn next" ${currentPage === totalPages ? 'disabled' : ''}>❯</button>
+    `;
+
+    paginationEl.innerHTML = paginationHTML;
+
+    // Add listeners to pagination buttons
+    paginationEl.querySelectorAll('.page-btn.num').forEach(btn => {
+        btn.addEventListener('click', () => {
+            currentPage = parseInt(btn.dataset.page);
+            renderProducts();
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        });
+    });
+
+    paginationEl.querySelector('.page-btn.prev')?.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderProducts();
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+    });
+
+    paginationEl.querySelector('.page-btn.next')?.addEventListener('click', () => {
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderProducts();
+            window.scrollTo({ top: 400, behavior: 'smooth' });
+        }
+    });
+}
+
+/**
+ * Attaches event listeners for "Add to cart" and quantity control buttons.
+ */
+function attachProductEventListeners() {
+    // Add to cart buttons
     document.querySelectorAll('.button-add-to-cart').forEach(button => {
         button.addEventListener('click', () => {
             if (localStorage.getItem('isLoggedIn') !== 'true') {
@@ -132,6 +239,7 @@ function renderProducts() {
         });
     });
 
+    // Increment quantity buttons
     document.querySelectorAll('.grid-qty-btn.plus').forEach(button => {
         button.addEventListener('click', () => {
             const productId = button.dataset.productId;
@@ -144,6 +252,7 @@ function renderProducts() {
         });
     });
 
+    // Decrement quantity buttons
     document.querySelectorAll('.grid-qty-btn.minus').forEach(button => {
         button.addEventListener('click', () => {
             const productId = button.dataset.productId;
@@ -157,6 +266,9 @@ function renderProducts() {
     });
 }
 
+/**
+ * Updates the cart quantity badge in the header.
+ */
 function updateQuantity() {
     let cartQuantity = 0;
     cart.forEach(cartItem => {
@@ -166,9 +278,12 @@ function updateQuantity() {
     if (qEl) qEl.innerHTML = cartQuantity;
 }
 
-// ========================
-// Toast UI Logic
-// ========================
+/**
+ * ========================
+ * Toast UI Logic
+ * ========================
+ * Displays a temporary notification when an item is added to the cart.
+ */
 function showToastForProduct(productId) {
     const product = products.find(p => p.id === productId);
     const cartItem = cart.find(c => c.productId === productId);
@@ -188,6 +303,9 @@ function showToastForProduct(productId) {
     resetToastTimer();
 }
 
+/**
+ * Resets the 5-second timer for the toast visibility.
+ */
 function resetToastTimer() {
     if (toastTimeout) clearTimeout(toastTimeout);
     toastTimeout = setTimeout(() => {
@@ -196,6 +314,9 @@ function resetToastTimer() {
     }, 5000);
 }
 
+/**
+ * Sets up listeners for interactions within the toast notification.
+ */
 function setupToastListeners() {
     const btnPlus = document.querySelector('.toast-qty-btn.plus');
     const btnMinus = document.querySelector('.toast-qty-btn.minus');
@@ -246,16 +367,16 @@ function setupToastListeners() {
     }
 }
 
+/**
+ * Initializes mobile-specific behavior for the catalog menu.
+ */
 function initMobileMenu() {
     const catalogContainer = document.querySelector('.catalog-container');
     const catalogBtn = catalogContainer?.querySelector('.catalog');
     const dropdownMenu = catalogContainer?.querySelector('.dropdown-menu');
     
-    // Only apply click logic on mobile/tablet
     if (window.innerWidth <= 768) {
-        // Toggle main menu on click
         if (catalogBtn && dropdownMenu) {
-            // Override inline onclick attribute specifically for mobile
             catalogBtn.onclick = (e) => {
                 if (window.innerWidth <= 768) {
                     e.preventDefault();
@@ -270,7 +391,6 @@ function initMobileMenu() {
             };
         }
 
-        // Toggle submenus on click
         const categories = document.querySelectorAll('.dropdown-category');
         categories.forEach(cat => {
             const titleLink = cat.querySelector('.category-title');
@@ -282,7 +402,6 @@ function initMobileMenu() {
                         e.preventDefault();
                         e.stopPropagation();
                         
-                        // Close other submenus first
                         categories.forEach(c => {
                             if (c !== cat) {
                                 c.querySelector('.sub-dropdown-menu')?.classList.remove('active');
@@ -296,7 +415,6 @@ function initMobileMenu() {
                 });
             }
 
-            // Close menu when a subcategory is clicked
             const subLinks = cat.querySelectorAll('.sub-dropdown-menu a');
             subLinks.forEach(link => {
                 link.addEventListener('click', () => {
@@ -309,7 +427,6 @@ function initMobileMenu() {
             });
         });
 
-        // Close everything when clicking outside
         document.addEventListener('click', () => {
             dropdownMenu?.classList.remove('active');
             document.querySelectorAll('.sub-dropdown-menu').forEach(s => s.classList.remove('active'));
@@ -318,9 +435,12 @@ function initMobileMenu() {
     }
 }
 
-// ========================
-// Initialization
-// ========================
+/**
+ * ========================
+ * Initialization
+ * ========================
+ * Runs when the DOM is fully loaded.
+ */
 document.addEventListener('DOMContentLoaded', () => {
     initSearch();
     initSlider();
@@ -328,5 +448,11 @@ document.addEventListener('DOMContentLoaded', () => {
     renderProducts();
     updateQuantity();
     initMobileMenu();
+
+    // Listener for sorting selection changes
+    document.getElementById('sort-select')?.addEventListener('change', () => {
+        currentPage = 1; // Reset to first page when sort changes
+        renderProducts();
+    });
 });
 

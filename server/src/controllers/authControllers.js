@@ -30,16 +30,17 @@ const register = async (req, res) => {
         });
 
             // GENERATE TOKEN JWT ICI AVANT DE SEND LE STATUS
-        const token = generateToken(user.id, res);
+        const token = generateToken(user.id, user.role, res);
 
         res.status(201).json({
             status: "success",
             data:{
                 user:{
                     id: user.id,
-                    name: name,
-                    surname: surname,
-                    email: email,
+                    name: user.name,
+                    surname: user.surname,
+                    email: user.email,
+                    role: user.role,
                 },
                 token,
             },
@@ -59,44 +60,51 @@ const register = async (req, res) => {
 
                 ///////// LOGIN ////////
 const login = async (req, res) => {
-    const { email, password } = req.body;
+
+    try{
+        const { email, password } = req.body;
 
 
-    // check if user exists
-    const user = await prisma.user.findUnique({
-        where: { email: email },
-    });
-
-
-    if (!user) {
-        return res.status(401).json({
-            error: "Invalid email or password"
+        // check if user exists
+        const user = await prisma.user.findUnique({
+            where: { email: email.toLowerCase() },
         });
-    };
 
 
-    // VERIFY THE PASSWORD
-    const isPasswordValid = await bcrypt.compare(password, user.password);
+        if (!user) {
+            return res.status(401).json({
+                error: "Invalid email or password"
+            });
+        };
 
 
-    if (!isPasswordValid) {
-        return res.status(401).json({ 
-            error: "Invalid email or password"
-        })
-    };
+        // VERIFY THE PASSWORD
+        const isPasswordValid = await bcrypt.compare(password, user.password);
 
-    const token = generateToken(user.id, res);
 
-    res.status(201).json({
-        status:"success",
-        data: {
-            user: {
-                id: user.id,
-                email: email,
+        if (!isPasswordValid) {
+            return res.status(401).json({ 
+                error: "Invalid email or password"
+            })
+        };
+
+        const token = generateToken(user.id, user.role, res);
+
+        res.status(200).json({
+            status:"success",
+            data: {
+                user: {
+                    id: user.id,
+                    email: email,
+                    role: user.role,
+                },
+                token,
             },
-            token,
-        },
-    });
+        });
+    }catch(error){
+        console.error("LOGIN ERROR:", error);
+        res.status(500).json({ error: "Internal server error" });
+    };
 };
 
 
@@ -118,4 +126,15 @@ const logout = async (req, res) => {
     });
 };
 
-export { register, login, logout };
+
+const getMe = async (req, res) => {
+    if (req.user) {
+        res.status(200).json({
+            status: "success",
+            data: { user: req.user }
+        });
+    } else {
+        res.status(404).json({ error: "User not found" });
+    }
+}
+export { register, login, logout, getMe };

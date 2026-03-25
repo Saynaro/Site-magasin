@@ -4,7 +4,9 @@ import cookieParser from "cookie-parser";
 import { config } from "dotenv";
 import { prisma } from './config/db.js';
 
-import authRoutes from "./routes/authRoutes.js"
+import authRoutes from "./routes/authRoutes.js";
+import productRoutes from "./routes/productRoutes.js";
+import cartRoutes from "./routes/cartRoutes.js";
 
 config();
 const app = express()
@@ -25,7 +27,9 @@ app.use(express.urlencoded({ extended: true }));      // Middleware to parse URL
 
 app.use("/auth", authRoutes);       // All routes defined in authRoutes will be prefixed with /auth
 
+app.use("/products", productRoutes);
 
+app.use("/cart", cartRoutes);
 
 
 
