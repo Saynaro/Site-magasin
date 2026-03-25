@@ -15,3 +15,7 @@ dist/
 build/
 postgres_data/
 db.sqlite
+
+CREATE_ORDER
+creation-order-by.txt
+DockerManipulation.txt
