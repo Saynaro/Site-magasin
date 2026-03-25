@@ -1,7 +1,17 @@
-node_modules/
+
 .env
-db.sqlite
-dist/
-build/
+
+# Ignore dependencies
+node_modules/
+server/node_modules/
+client/node_modules/
+
+# Ignore system files
 .DS_Store
 *.log
+
+# Ignore Folders
+dist/
+build/
+postgres_data/
+db.sqlite
