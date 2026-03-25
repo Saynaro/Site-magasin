@@ -6,12 +6,20 @@ import { Prisma } from "@prisma/client";
                         //////// SHOW PRODUCTS BY CATEGORIES AND SUBCATEGORIES //////////
 export const showProducts = async (req, res) => {
     try {
-        const { categoryId, minPrice, maxPrice, sortBy, page = 1, limit = 9 } = req.query;
+        const { page = 1, limit = 9, search, categoryId, minPrice, maxPrice, sortBy } = req.query;
         
         let queryCondition = {};
 
+        if (search) {
+            queryCondition.OR = [
+                { name: { contains: search, mode: 'insensitive' } },
+                { description: { contains: search, mode: 'insensitive' } },
+                { category: { name: { contains: search, mode: 'insensitive' } } }
+            ];
+        }
+
         // --- SORT BY CATEGORY ---
-        if (categoryId) {
+        if (categoryId && !isNaN(Number(categoryId))) {
             const id = Number(categoryId);
 
             // search category and her subcategory
@@ -59,21 +67,48 @@ export const showProducts = async (req, res) => {
         });
 
         if (products.length === 0) {
-            return res.status(404).json({ error: "No products found!" });
+            return res.status(200).json({
+                products: [],
+                totalPages: 0,
+                currentPage: p,
+                totalItems: 0
+            });
         }
 
+        const totalPages = Math.ceil(total / l);
+        const totalItems = total;
+
         res.status(200).json({
+            status: "success",
             products,
-            totalPages: Math.ceil(total / l),
+            totalPages,
             currentPage: p,
-            totalItems: total
+            totalItems
         });
+
     } catch (error) {
-        console.error(`ShowProducts Error: ${error}`);
-        res.status(500).json({ error: "Server error!" });
+        console.error(error);
+        res.status(500).json({ error: "Fetch products error" });
     }
 };
 
+export const showProductById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const product = await prisma.product.findUnique({
+            where: { id },
+            include: { category: true }
+        });
+
+        if (!product) {
+            return res.status(404).json({ error: "Product not found" });
+        }
+
+        res.status(200).json({ status: "success", data: product });
+    } catch (error) {
+        res.status(500).json({ error: "Fetch product by ID error" });
+    }
+};
 
 
 

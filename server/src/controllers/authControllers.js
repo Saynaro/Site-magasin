@@ -29,13 +29,13 @@ const register = async (req, res) => {
             },
         });
 
-            // GENERATE TOKEN JWT ICI AVANT DE SEND LE STATUS
+        // GENERATE TOKEN JWT ICI AVANT DE SEND LE STATUS
         const token = generateToken(user.id, user.role, res);
 
         res.status(201).json({
             status: "success",
-            data:{
-                user:{
+            data: {
+                user: {
                     id: user.id,
                     name: user.name,
                     surname: user.surname,
@@ -44,12 +44,12 @@ const register = async (req, res) => {
                 },
                 token,
             },
-            
+
         });
 
     } catch (error) {
         console.log(error);
-        res.status(500).json({ 
+        res.status(500).json({
             error: "Internal server error"
         })
     };
@@ -58,10 +58,10 @@ const register = async (req, res) => {
 
 
 
-                ///////// LOGIN ////////
+///////// LOGIN ////////
 const login = async (req, res) => {
 
-    try{
+    try {
         const { email, password } = req.body;
 
 
@@ -83,7 +83,7 @@ const login = async (req, res) => {
 
 
         if (!isPasswordValid) {
-            return res.status(401).json({ 
+            return res.status(401).json({
                 error: "Invalid email or password"
             })
         };
@@ -91,7 +91,7 @@ const login = async (req, res) => {
         const token = generateToken(user.id, user.role, res);
 
         res.status(200).json({
-            status:"success",
+            status: "success",
             data: {
                 user: {
                     id: user.id,
@@ -101,7 +101,7 @@ const login = async (req, res) => {
                 token,
             },
         });
-    }catch(error){
+    } catch (error) {
         console.error("LOGIN ERROR:", error);
         res.status(500).json({ error: "Internal server error" });
     };
@@ -109,7 +109,7 @@ const login = async (req, res) => {
 
 
 
-            //////// LOGOUT ///////
+//////// LOGOUT ///////
 const logout = async (req, res) => {
     // "jwt" = ""
     res.cookie("jwt", "", {
@@ -137,4 +137,34 @@ const getMe = async (req, res) => {
         res.status(404).json({ error: "User not found" });
     }
 }
-export { register, login, logout, getMe };
+
+
+
+const updateMe = async (req, res) => {
+    try {
+        const { name, email } = req.body;
+        const userId = req.user.id;
+
+        const updatedUser = await prisma.user.update({
+            where: { id: userId },
+            data: { name, email }
+        });
+
+        res.status(200).json({
+            status: "success",
+            data: {
+                user: {
+                    id: updatedUser.id,
+                    name: updatedUser.name,
+                    email: updatedUser.email,
+                    role: updatedUser.role
+                }
+            }
+        });
+    } catch (error) {
+        console.error("UPDATE ME ERROR:", error);
+        res.status(500).json({ error: "Could not update profile" });
+    }
+};
+
+export { register, login, logout, getMe, updateMe };
