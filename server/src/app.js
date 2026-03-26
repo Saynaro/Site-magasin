@@ -10,6 +10,7 @@ import cartRoutes from "./routes/cartRoutes.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import bannerRoutes from "./routes/bannerRoutes.js";
 import reviewRoutes from "./routes/reviewRoutes.js";
+import categoryRoutes from "./routes/categoryRoutes.js";
 
 config();
 const app = express()
@@ -39,6 +40,8 @@ app.use("/orders", orderRoutes);
 app.use("/banners", bannerRoutes);
 
 app.use("/reviews", reviewRoutes);
+
+app.use("/categories", categoryRoutes);
 
 
 

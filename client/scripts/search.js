@@ -1,27 +1,49 @@
-import { products } from '../data/products.js';
+import { fetchAPI } from './api.js';
 
 export function initSearch() {
     const searchInput = document.getElementById('search-input');
     const autocompleteList = document.getElementById('autocomplete-list');
-    
+    let searchTimeout; // For timer
+
     if (!searchInput || !autocompleteList) return;
 
     searchInput.addEventListener('input', (e) => {
         const val = e.target.value.toLowerCase();
-        autocompleteList.innerHTML = '';
+        
+        // 1. Reset timer in every click 
+        clearTimeout(searchTimeout);
         
         if (!val) {
+            autocompleteList.innerHTML = '';
             autocompleteList.style.display = 'none';
             return;
         }
 
-        const matches = products.filter(p => 
-            p.name.toLowerCase().includes(val) || 
-            p.category.toLowerCase().includes(val)
-        );
+        // 2. Make ping 400ms
+        searchTimeout = setTimeout(async () => {
+            try {
+                // The request will be send just only user make a stop when making search 
+                const res = await fetchAPI('/products');
+                if (res && res.products) {
+                    const products = res.products || [];
+                    const matches = products.filter(p => 
+                        p.name.toLowerCase().includes(val) || 
+                        (p.category?.name && p.category.name.toLowerCase().includes(val))
+                    );
 
+                    renderAutocomplete(matches, autocompleteList);
+                }
+            } catch(err) {
+                console.error("Search error:", err);
+            }
+        }, 400); 
+    });
+
+    
+    function renderAutocomplete(matches, list) {
+        list.innerHTML = '';
         if (matches.length > 0) {
-            autocompleteList.style.display = 'block';
+            list.style.display = 'block';
             matches.forEach(match => {
                 const item = document.createElement('a');
                 item.classList.add('autocomplete-item');
@@ -30,74 +52,16 @@ export function initSearch() {
                     <img src="${match.image}" alt="">
                     <span>${match.name}</span>
                 `;
-                autocompleteList.appendChild(item);
+                list.appendChild(item);
             });
         } else {
-            autocompleteList.style.display = 'none';
+            list.style.display = 'none';
         }
-    });
+    }
 
-    // Close dropdown when clicking outside
     document.addEventListener('click', (e) => {
         if (!searchInput.contains(e.target) && !autocompleteList.contains(e.target)) {
             autocompleteList.style.display = 'none';
         }
     });
 }
-
-
-
-
-
-// POUR CHERCHER DANS LA BASE DE DONNEES
-/* // Убираем импорт локального массива, теперь данные в БД
-// import { products } from '../data/products.js'; 
-
-export function initSearch() {
-    const searchInput = document.getElementById('search-input');
-    const autocompleteList = document.getElementById('autocomplete-list');
-    
-    if (!searchInput || !autocompleteList) return;
-
-    searchInput.addEventListener('input', async (e) => {
-        const val = e.target.value.trim();
-        autocompleteList.innerHTML = '';
-        
-        if (val.length < 2) { // Не ищем, если введено меньше 2 символов
-            autocompleteList.style.display = 'none';
-            return;
-        }
-
-        try {
-            // Делаем запрос к твоему бэкенду!
-            // Используем параметр search (который мы обсуждали ранее)
-            const response = await fetch(`/products?search=${encodeURIComponent(val)}&limit=5`);
-            const data = await response.json();
-            const matches = data.products; // Твой бэкенд возвращает объект { products: [...] }
-
-            if (matches && matches.length > 0) {
-                autocompleteList.style.display = 'block';
-                matches.forEach(match => {
-                    const item = document.createElement('a');
-                    item.classList.add('autocomplete-item');
-                    // У тебя в БД используется slug или id (cuid)
-                    item.href = `product.html?slug=${match.slug}`; 
-                    item.innerHTML = `
-                        <img src="${match.image}" alt="">
-                        <div>
-                            <span>${match.name}</span>
-                            <small>${match.priceCents / 100} $</small>
-                        </div>
-                    `;
-                    autocompleteList.appendChild(item);
-                });
-            } else {
-                autocompleteList.style.display = 'none';
-            }
-        } catch (error) {
-            console.error("Search error:", error);
-        }
-    });
-
-    // ... логика закрытия кликом вне списка остается прежней
-} */

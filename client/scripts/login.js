@@ -1,10 +1,11 @@
-// login.js
+import { fetchAPI } from './api.js';
 
-// 1. Inject CSS safely
+// Inject CSS safely
 const link = document.createElement('link');
 link.rel = 'stylesheet';
 link.href = './styles/login.css';
 document.head.appendChild(link);
+
 document.addEventListener('DOMContentLoaded', () => {
     // Inject global toast
     if (!document.getElementById('global-toast')) {
@@ -15,8 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
         `;
         document.body.insertAdjacentHTML('beforeend', toastHTML);
     }
-    
-    window.showGlobalToast = function(message) {
+
+    window.showGlobalToast = function (message) {
         const toast = document.getElementById('global-toast');
         const msgEl = document.getElementById('global-toast-msg');
         if (!toast || !msgEl) return;
@@ -32,47 +33,74 @@ document.addEventListener('DOMContentLoaded', () => {
     // Prevent double modal injection
     if (document.getElementById('login-modal-overlay')) return;
 
-    // 2. Inject HTML Modal
+    // Eye icon SVG
+    const eyeIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye">
+            <path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/>
+            <circle cx="12" cy="12" r="3"/>
+        </svg>`;
+
+    const eyeOffIcon = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off">
+            <path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/>
+            <path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/>
+            <path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/>
+            <path d="m2 2 20 20"/>
+        </svg>`;
+
+    // Inject HTML Modal
     const modalHTML = `
         <div id="login-modal-overlay" class="login-modal-hidden">
             <div class="login-modal">
                 <button class="login-modal-close" style="z-index:10;">✕</button>
+                
+                <!-- LOGIN FORM -->
                 <div class="login-modal-content" id="login-content">
-                    <h2>Log in / Inscription</h2>
-                    <p class="login-subtitle">We will send a code. No need to answer the call. The code can come by SMS or email.</p>
-                    <div class="login-input-group">
-                        <select class="country-code">
-                            <option value="+33">🇫🇷 +33</option>
-                            <option value="+1">🇺🇸 +1</option>
-                        </select>
-                        <input type="tel" placeholder="0 00 00 00 00" id="login-phone">
-                    </div>
-                    <button class="login-submit-btn">Continue</button>
+                    <h2>Log In</h2>
+                    <p class="login-subtitle">Enter your email and password to access your account.</p>
+                    <form id="login-form">
+                        <div class="login-input-group" style="margin-bottom: 15px;">
+                            <input type="email" placeholder="Email address" id="login-email" required>
+                        </div>
+                        <div class="login-input-group" style="margin-bottom: 20px; position: relative;">
+                            <input type="password" placeholder="Password" id="login-password" required style="padding-right: 40px; width: 100%;">
+                            <span class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;">
+                                ${eyeIcon}
+                            </span>
+                        </div>
+                        <button type="submit" class="login-submit-btn">Log In</button>
+                    </form>
                     <div class="login-divider"><span>or</span></div>
-                    <button class="login-sso-btn apple">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z"/><path d="M10 2c1 .5 2 2 2 5"/></svg>
-                        Log in with Apple
-                    </button>
-                    <button class="login-sso-btn vk">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
-                        Log in with Facebook
-                    </button>
                     <button class="login-sso-btn email" id="switch-to-register">
-                        Login / Sign up by Email
+                        Create an Account
                     </button>
                 </div>
 
+                <!-- REGISTER FORM -->
                 <div class="login-modal-content hidden" id="register-content">
-                    <h2>Login / Sign Up via Email</h2>
-                    <p class="login-subtitle">Enter your email and password to log in or create a new account.</p>
-                    <div class="login-input-group" style="margin-bottom: 10px;">
-                        <input type="email" placeholder="Email address" id="register-email">
-                    </div>
-                    <div class="login-input-group" style="margin-bottom: 20px;">
-                        <input type="password" placeholder="Password" id="register-password">
-                    </div>
-                    <button class="login-submit-btn">Log In / Sign Up</button>
-                    <a href="#" class="login-link" id="switch-to-login">Back to phone login</a>
+                    <h2>Sign Up</h2>
+                    <p class="login-subtitle">Create a new account.</p>
+                    <form id="register-form">
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <div class="login-input-group">
+                                <input type="text" placeholder="First Name" id="register-name" required>
+                            </div>
+                            <div class="login-input-group">
+                                <input type="text" placeholder="Last Name" id="register-surname" required>
+                            </div>
+                        </div>
+                        <div class="login-input-group" style="margin-bottom: 15px;">
+                            <input type="email" placeholder="Email address" id="register-email" required>
+                        </div>
+                        <div class="login-input-group" style="margin-bottom: 20px; position: relative;">
+                            <input type="password" placeholder="Password" id="register-password" required style="padding-right: 40px; width: 100%;">
+                            <span class="password-toggle" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; color: #888;">
+                                ${eyeIcon}
+                            </span>
+                        </div>
+                        <button type="submit" class="login-submit-btn">Sign Up</button>
+                    </form>
+                    <a href="#" class="login-link" id="switch-to-login">Already have an account? Log In</a>
                 </div>
             </div>
         </div>
@@ -81,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Attach Listeners
     const overlay = document.getElementById('login-modal-overlay');
-    window.showLoginModal = function() {
+    window.showLoginModal = function () {
         if (overlay) overlay.classList.remove('login-modal-hidden');
     };
     const closeBtn = document.querySelector('.login-modal-close');
@@ -95,9 +123,9 @@ document.addEventListener('DOMContentLoaded', () => {
     userIcons.forEach(icon => {
         const userBtn = icon.closest('a');
         if (userBtn) {
-            userBtn.addEventListener('click', (e) => {
+            userBtn.addEventListener('click', async (e) => {
                 e.preventDefault();
-                if (localStorage.getItem('isLoggedIn') === 'true') {
+                if (window.currentUser) {
                     window.location.href = 'account.html';
                 } else {
                     overlay.classList.remove('login-modal-hidden');
@@ -126,21 +154,108 @@ document.addEventListener('DOMContentLoaded', () => {
         loginContent.classList.remove('hidden');
     });
 
-    // Handle authentication (Mock)
-    const submitBtns = document.querySelectorAll('.login-submit-btn');
-    submitBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            localStorage.setItem('isLoggedIn', 'true');
-            // If first time setting up, initialize userProfile
-            if (!localStorage.getItem('userProfile')) {
-                localStorage.setItem('userProfile', JSON.stringify({
-                    name: "Saina",
-                    surname: "Rokhalid",
-                    email: "saina@example.com",
-                    avatar: "photo/Logo.png" // Default avatar
-                }));
+    // Password visibility toggle
+    document.querySelectorAll('.password-toggle').forEach(toggleBtn => {
+        toggleBtn.addEventListener('click', () => {
+            const input = toggleBtn.previousElementSibling;
+            if (input.type === 'password') {
+                input.type = 'text';
+                toggleBtn.innerHTML = eyeOffIcon;
+            } else {
+                input.type = 'password';
+                toggleBtn.innerHTML = eyeIcon;
             }
-            window.location.href = 'account.html';
         });
     });
+
+    // Password Validation Helper
+    const validatePassword = (password) => {
+        const regex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+        return regex.test(password);
+    };
+
+    // Form Submissions
+    document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const email = document.getElementById('login-email').value;
+        const password = document.getElementById('login-password').value;
+
+        try {
+            const res = await fetchAPI('/auth/login', {
+                method: 'POST',
+                body: { email, password }
+            });
+
+            if (res.status === 'success') {
+                window.currentUser = res.data.user; 
+                localStorage.setItem('isLoggedIn', 'true');
+                window.location.reload();
+            }
+        } catch (error) {
+            window.showGlobalToast("Login failed: " + error.message);
+        }
+    });
+
+    document.getElementById('register-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const name = document.getElementById('register-name').value;
+        const surname = document.getElementById('register-surname').value;
+        const email = document.getElementById('register-email').value;
+        const password = document.getElementById('register-password').value;
+
+        if (!validatePassword(password)) {
+            window.showGlobalToast("Password must be at least 8 characters, contain 1 uppercase letter, 1 lowercase letter, and 1 number.");
+            return;
+        }
+
+        try {
+            const res = await fetchAPI('/auth/register', {
+                method: 'POST',
+                body: { name, surname, email, password }
+            });
+
+            if (res.status === 'success') {
+                window.currentUser = res.data.user;
+                localStorage.setItem('isLoggedIn', 'true');
+                window.showGlobalToast("Account created successfully!");
+                setTimeout(() => {
+                    window.location.reload();
+                }, 1000);
+            }
+        } catch (error) {
+            window.showGlobalToast("Registration failed: " + error.message);
+        }
+    });
+
+    // // Auto-check auth on load to set up window.currentUser globally
+    // (async () => {
+    //     await refreshCurrentUser();
+    // })();
 });
+
+
+
+
+export async function refreshCurrentUser() {
+    
+    try {
+        const res = await fetchAPI('/auth/me');
+        if (res?.data?.user) {
+            window.currentUser = res.data.user;
+            localStorage.setItem('isLoggedIn', 'true');
+            return true;
+        }
+    } catch (err) {
+        // Silent fail sets as guest
+    }
+
+    window.currentUser = null;
+    localStorage.removeItem('isLoggedIn');
+    return false;
+}
+
+export function preventHashNavigation() {
+    document.querySelectorAll('a[href="#"]').forEach(a => {
+        a.addEventListener('click', (e) => e.preventDefault());
+    });
+}

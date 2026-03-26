@@ -1,108 +1,97 @@
 // orders.js
-import { cart } from '../data/cart.js'; // to get cart quantity
 
-// Global Mock Orders Data (Used by both orders.js and track_order.js)
-export const mockOrders = [
-    {
-        id: "193-4920194-209341",
-        date: "20 Février 2026",
-        total: 154.99,
-        status: "Livré",
-        statusCode: 3, // 0: Commandé, 1: Expédié, 2: En transit, 3: Livré
-        items: [
-            { image: "https://images.unsplash.com/photo-1546868871-7041f2a55e12?auto=format&fit=crop&q=80&w=200", name: "Apple Watch Series 9" }
-        ],
-        address: "123 Rue de la Paix, 75000 Paris, France"
-    },
-    {
-        id: "204-9840291-827364",
-        date: "22 Mars 2026",
-        total: 89.00,
-        status: "En cours de livraison",
-        statusCode: 2,
-        items: [
-            { image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1?auto=format&fit=crop&q=80&w=200", name: "Assortiment Gourmand" },
-            { image: "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?auto=format&fit=crop&q=80&w=200", name: "Casque Audio Premium" }
-        ],
-        address: "123 Rue de la Paix, 75000 Paris, France"
-    },
-    {
-        id: "311-5345621-998822",
-        date: "24 Mars 2026",
-        total: 25.50,
-        status: "Commandé",
-        statusCode: 0,
-        items: [
-            { image: "https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?auto=format&fit=crop&q=80&w=200", name: "T-shirt Noir Basique" }
-        ],
-        address: "123 Rue de la Paix, 75000 Paris, France"
+import { refreshCurrentUser, preventHashNavigation } from './login.js';
+import { fetchAPI } from './api.js';
+
+function formatDate(isoDate) {
+    if (!isoDate) return '';
+    const dateObj = new Date(isoDate);
+    const months = ['janvier', 'février', 'mars', 'avril', 'mai', 'juin', 'juillet', 'août', 'septembre', 'octobre', 'novembre', 'décembre'];
+    return `${dateObj.getDate()} ${months[dateObj.getMonth()]} ${dateObj.getFullYear()}`;
+}
+
+function mapStatus(status) {
+    switch (status) {
+        case 'PAID': return { label: 'Commandé', code: 1 };
+        case 'SHIPPED': return { label: 'En cours de livraison', code: 2 };
+        case 'DELIVERED': return { label: 'Livré', code: 3 };
+        case 'CANCELLED': return { label: 'Annulé', code: 4 };
+        default: return { label: 'En attente', code: 0 };
     }
-];
+}
 
-document.addEventListener('DOMContentLoaded', () => {
-    // Ensure user is logged in
-    if (localStorage.getItem('isLoggedIn') !== 'true') {
+document.addEventListener('DOMContentLoaded', async () => {
+    preventHashNavigation();
+    await refreshCurrentUser();
+    if (!window.currentUser) {
         window.location.href = 'index.html';
         return;
     }
 
-    // Update cart quantity in header
-    let cartTotal = 0;
-    cart.forEach(c => cartTotal += c.quantity);
-    const qEl = document.querySelector('.quantity');
-    if (qEl) qEl.innerHTML = cartTotal;
-
     const listContainer = document.getElementById('orders-list');
     if (!listContainer) return;
 
-    if (mockOrders.length === 0) {
-        listContainer.innerHTML = '<p>Vous n\'avez passé aucune commande pour le moment.</p>';
-        return;
-    }
+    listContainer.innerHTML = '<p>Chargement de vos commandes...</p>';
 
-    let html = '';
-    mockOrders.forEach(order => {
-        const isDelivered = order.statusCode === 3;
-        
-        let imagesHTML = '';
-        order.items.forEach(item => {
-            imagesHTML += `<img src="${item.image}" alt="${item.name}" title="${item.name}">`;
+    try {
+        const res = await fetchAPI('/orders/my');
+        const orders = res || [];
+
+        if (orders.length === 0) {
+            listContainer.innerHTML = `<p>Vous n'avez passé aucune commande pour le moment.</p>`;
+            return;
+        }
+
+        let html = '';
+        orders.forEach(order => {
+            const statusInfo = mapStatus(order.status);
+            const isDelivered = statusInfo.code === 3;
+
+            let imagesHTML = '';
+            (order.items || []).forEach(item => {
+                if (item.product) {
+                    imagesHTML += `<img src="${item.product.image}" alt="${item.product.name}" title="${item.product.name}">`;
+                }
+            });
+
+            html += `
+                <div class="order-card">
+                    <div class="order-header">
+                        <div class="order-meta">
+                            <div class="meta-group">
+                                <p>Commande effectuée le</p>
+                                <strong>${formatDate(order.created_at)}</strong>
+                            </div>
+                            <div class="meta-group">
+                                <p>Total</p>
+                                <strong>${(order.totalAmount / 100).toFixed(2)} €</strong>
+                            </div>
+                            <div class="meta-group">
+                                <p>Livraison à</p>
+                                <strong>${window.currentUser?.name || "Vous"}</strong>
+                            </div>
+                        </div>
+                        <div class="order-id">
+                            N° de commande <br>
+                            <span>${order.id}</span>
+                        </div>
+                    </div>
+                    <div class="order-body">
+                        <div class="order-content-left">
+                            <h3 class="order-status ${isDelivered ? 'delivered' : ''}">${statusInfo.label}</h3>
+                            <div class="order-items-preview">
+                                ${imagesHTML}
+                            </div>
+                        </div>
+                        <a href="track_order.html?id=${order.id}" class="btn-track">Suivre le colis</a>
+                    </div>
+                </div>
+            `;
         });
 
-        html += `
-            <div class="order-card">
-                <div class="order-header">
-                    <div class="order-meta">
-                        <div class="meta-group">
-                            <p>Commande effectuée le</p>
-                            <strong>${order.date}</strong>
-                        </div>
-                        <div class="meta-group">
-                            <p>Total</p>
-                            <strong>${order.total.toFixed(2)} €</strong>
-                        </div>
-                        <div class="meta-group">
-                            <p>Livraison à</p>
-                            <strong>Saina Rokhalid</strong>
-                        </div>
-                    </div>
-                    <div class="order-id">
-                        N° de commande <br>
-                        <span>${order.id}</span>
-                    </div>
-                </div>
-                <div class="order-body">
-                    <div class="order-content-left">
-                        <h3 class="order-status ${isDelivered ? 'delivered' : ''}">${order.status}</h3>
-                        <div class="order-items-preview">
-                            ${imagesHTML}
-                        </div>
-                    </div>
-                    <a href="track_order.html?id=${order.id}" class="btn-track">Suivre le colis</a>
-                </div>
-            </div>
-        `;
-    });
-
-    listContainer.innerHTML = html;
+        listContainer.innerHTML = html;
+    } catch (err) {
+        console.error("Orders fetch failed:", err);
+        listContainer.innerHTML = '<p>Erreur lors du chargement des commandes. Veuillez réessayer.</p>';
+    }
 });

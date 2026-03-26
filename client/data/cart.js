@@ -1,95 +1,92 @@
+import { fetchAPI } from '../scripts/api.js';
 
-// in the LocalStorage.getItem below we convert our string to array because we want an array in our cart
-// structure localStorage.getItem('name-which-we-gave-like-first-parameter-in-setItem');
+export let cart = [];
 
-export let cart = JSON.parse(localStorage.getItem('cart'));
+// Fetch the user's cart from the database
+export async function initCart() {
 
-
-
-
-// if cart is empty we take default products
-    
-        if(!cart){  
-            cart = [{
-                productId: '1',
-                quantity: 1
-            },
-            {
-                productId: '2',
-                quantity: 2
-            }];
+    console.trace('initCart called');
+    cart.length = 0;
+    try {
+        const res = await fetchAPI('/cart');
+        if (res.status === 'success') {
+            const newItems = res.data.map(item => ({
+                productId: item.productId,
+                quantity: item.quantity,
+                variant: item.variant,
+                priceCents: item.product?.priceCents,
+                image: item.product?.image,
+                name: item.product?.name
+            }));
+            cart.push(...newItems);
         }
-            
-
-
-
-export function addToCart(productId) {
-
-    let matchingItem;
-
-    cart.forEach(cartItem => {
-            if (productId === cartItem.productId) {
-                matchingItem = cartItem;
-            };
-    });
-
-    if (matchingItem) {
-            matchingItem.quantity += 1;
-    } else{
-        cart.push({
-                    productId: productId,
-                    quantity:1
-                });
-
-            };
-
-            saveToStorage(); // we saved the storage after adding a product in cart
-    
-};
-
-export function saveToStorage() {
-    // structure of localStorage.setItem('name-what-we-want', our array)
-    // localStorage.setItem can save only strings, so we translate our array on string
-    // However localStorege.getItem can get only array, so we need to retranslate our string in array, when we use GET, like : JSON.parse()
-    localStorage.setItem('cart', JSON.stringify(cart));
+    } catch (err) {
+        console.error("Failed to load cart from DB", err);
+    }
+    return cart;
 }
 
-
-export function removeFromCart(itemId){
-    const newCart = [];
-
-
-    cart.forEach(cartItem => {
-        //if it's not equal we add items in new array
-        if (cartItem.productId !== itemId) {     
-            newCart.push(cartItem);
-        };
-    })
-
-    cart = newCart;  // replaced cart with new cart (after deleted peoducts)
-    
-    saveToStorage(); // we saved the storage our new array
-};
-
-
-
-export function suprimeAllProducts () {
-    cart = [];
-    saveToStorage();
-}
-
-export function updateQuantityInCart(productId, newQuantity) {
-    let matchingItem;
-    cart.forEach(cartItem => {
-        if (productId === cartItem.productId) {
-            matchingItem = cartItem;
-        };
-    });
-
-    if (matchingItem && newQuantity > 0) {
-        matchingItem.quantity = newQuantity;
-        saveToStorage();
-    } else if (matchingItem && newQuantity <= 0) {
-        removeFromCart(productId);
+export async function addToCart(productId, quantity = 1, variant = null) {
+    if (!window.currentUser && localStorage.getItem('isLoggedIn') !== 'true') return;
+    try {
+        await fetchAPI('/cart/add', {
+            method: 'POST',
+            body: { productId, quantity, variant }
+        });
+        await initCart();
+    } catch (err) {
+        console.error("Add to cart error:", err);
     }
 }
+
+export async function updateQuantityInCart(productId, newQuantity) {
+    if (!window.currentUser && localStorage.getItem('isLoggedIn') !== 'true') return;
+    
+    if (newQuantity <= 0) {
+        return removeFromCart(productId);
+    }
+
+    try {
+        await fetchAPI('/cart/update', {
+            method: 'PATCH',
+            body: { productId, quantity: newQuantity }
+        });
+        await initCart();
+    } catch(err) {
+        console.error("Update quantity error:", err);
+    }
+}
+
+export async function removeFromCart(productId) {
+    if (!window.currentUser && localStorage.getItem('isLoggedIn') !== 'true') return;
+
+    try {
+        await fetchAPI('/cart/remove', {
+            method: 'DELETE',
+            body: { productId }
+        });
+        await initCart();
+    } catch(err) {
+        console.error("Remove from cart error:", err);
+    }
+}
+
+export async function suprimeAllProducts() {
+    // Currently no drop-all endpoint exist, so we delete individually
+    if (!window.currentUser && localStorage.getItem('isLoggedIn') !== 'true') return;
+    try {
+        for (const item of cart) {
+            await fetchAPI('/cart/remove', {
+                method: 'DELETE',
+                body: { productId: item.productId }
+            });
+        }
+        await initCart();
+    } catch(err) {
+        console.error("Wipe cart error:", err);
+    }
+}
+
+// Removed automatic top-level call to avoid redundant requests across multiple script imports.
+// Pages should call initCart() explicitly in their DOMContentLoaded listeners.
+// initCart();

@@ -18,6 +18,13 @@
 #login-modal-overlay.login-modal-hidden {
     opacity: 0;
     visibility: hidden;
+    pointer-events: none;
+    display: none;
+}
+
+#login-modal-overlay:not(.login-modal-hidden) {
+    display: flex;
+    pointer-events: auto;
 }
 
 .login-modal {

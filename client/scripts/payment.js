@@ -1,19 +1,42 @@
 // payment.js
-import { cart } from '../data/cart.js';
-import { products } from '../data/products.js';
 
-document.addEventListener('DOMContentLoaded', () => {
-    
-    // Simple basic check: If cart empty, maybe alert?
-    // Often checkout handles empty cart, but let's just render what we have.
-    // If we came from product.html's "Buy Now", it might add to cart first, or we can handle it directly.
+import { refreshCurrentUser, preventHashNavigation } from './login.js';
+import { cart, initCart } from '../data/cart.js';
+import { fetchAPI } from './api.js';
+
+let products = [];
+
+async function fetchProducts() {
+    try {
+        const res = await fetchAPI('/products');
+        if (res && res.products) {
+            products = res.products;
+        }
+    } catch (err) {
+        console.error("Failed to load products in payment.js", err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', async () => {
+    preventHashNavigation();
+    await refreshCurrentUser();
+
+    // Check Auth
+    if (!window.currentUser) {
+        window.location.href = 'index.html';
+        return;
+    }
+
+    await fetchProducts();
+    await initCart();
+
     renderOrderSummary();
 
     // Setup input formatting
     const cardNum = document.getElementById('card-number');
     if (cardNum) {
         cardNum.addEventListener('input', (e) => {
-            let val = e.target.value.replace(/\D/g, '');
+            let val = e.target.value.replace(/\\D/g, '');
             val = val.replace(/(.{4})/g, '$1 ').trim();
             e.target.value = val;
         });
@@ -22,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cardExp = document.getElementById('card-expiry');
     if (cardExp) {
         cardExp.addEventListener('input', (e) => {
-            let val = e.target.value.replace(/\D/g, '');
+            let val = e.target.value.replace(/\\D/g, '');
             if (val.length > 2) {
                 val = val.substring(0, 2) + '/' + val.substring(2, 4);
             }
@@ -32,18 +55,37 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const btnSubmit = document.getElementById('btn-pay-submit');
     if (btnSubmit) {
-        btnSubmit.addEventListener('click', () => {
-             // Mock payment processing
-             btnSubmit.innerHTML = "Traitement en cours...";
-             btnSubmit.style.background = "#555";
-             setTimeout(() => {
-                 if (window.showGlobalToast) window.showGlobalToast("Paiement réussi! Merci pour votre achat.");
-                 localStorage.removeItem('cart'); // Clear cart
-                 
-                 setTimeout(() => {
-                     window.location.href = 'index.html'; // Redirect to success page
-                 }, 2000);
-             }, 1500);
+        btnSubmit.addEventListener('click', async (e) => {
+            e.preventDefault();
+
+            btnSubmit.innerHTML = "Traitement en cours...";
+            btnSubmit.style.background = "#555";
+            btnSubmit.disabled = true;
+
+            try {
+                const selectedForPayment = JSON.parse(localStorage.getItem('selectedForPayment') || '[]');
+                const body = Array.isArray(selectedForPayment) && selectedForPayment.length > 0 ? { selectedProductIds: selectedForPayment } : {};
+
+                const res = await fetchAPI('/orders/checkout', {
+                    method: 'POST',
+                    body
+                });
+
+                if (res.status === 'success') {
+                    if (window.showGlobalToast) window.showGlobalToast("Paiement réussi! Merci pour votre achat.");
+                    localStorage.removeItem('selectedForPayment');
+                    await initCart();
+
+                    setTimeout(() => {
+                        window.location.href = 'account.html'; // Redirect to account to see orders
+                    }, 2000);
+                }
+            } catch (err) {
+                if (window.showGlobalToast) window.showGlobalToast("Payment Failed: " + err.message);
+                btnSubmit.innerHTML = "Paiement";
+                btnSubmit.style.background = "#005bff";
+                btnSubmit.disabled = false;
+            }
         });
     }
 });
@@ -56,12 +98,13 @@ function renderOrderSummary() {
     let selectedIdsStr = localStorage.getItem('selectedForPayment');
     let selectedIds = null;
     if (selectedIdsStr) {
-        try { selectedIds = JSON.parse(selectedIdsStr); } catch(e) {}
+        try { selectedIds = JSON.parse(selectedIdsStr); } catch (e) { }
     }
 
+    // Filter cart items to only show selected ones
     let itemsToProcess = cart;
     if (selectedIds && Array.isArray(selectedIds) && selectedIds.length > 0) {
-        itemsToProcess = cart.filter(c => selectedIds.includes(c.productId));
+        itemsToProcess = cart.filter(item => selectedIds.includes(item.productId));
     }
 
     itemsToProcess.forEach(cartItem => {
@@ -94,7 +137,7 @@ function renderOrderSummary() {
     if (summaryItemsPrice && summaryTotal) {
         const sum = totalCents / 100;
         summaryItemsPrice.textContent = `${sum.toFixed(2)} €`;
-        
+
         let delivery = sum > 0 ? 2.99 : 0;
         if (summaryDelivery) summaryDelivery.textContent = `${delivery.toFixed(2)} €`;
 

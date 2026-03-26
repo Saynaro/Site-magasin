@@ -474,7 +474,7 @@ export const products = [
     {
         id: '102',
         name: 'Casque Audio Sony WH-1000XM5',
-        category: 'Electronics',
+        category: 'Food',
         subcategory: 'casque audio',
         priceCents: 39900,
         description: 'Le meilleur casque à réduction de bruit du marché. Plongez dans votre musique avec un confort inégalé et un son Hi-Res spectaculaire.',
@@ -686,7 +686,7 @@ export const products = [
     {
         id: '103',
         name: 'Montre Connectée Sport Pro',
-        category: 'Electronics',
+        category: 'Food',
         subcategory: 'montre',
         priceCents: 24900,
         description: 'Suivez vos performances sportives et votre santé. Écran OLED circulaire, GPS intégré, étanche jusqu\'à 50 mètres. Jusqu\'à 14 jours de batterie.',

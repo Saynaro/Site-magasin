@@ -7,8 +7,14 @@ export const createOrder = async (req, res) => {
     try {
         const userId = Number(req.user.id);
 
+        const { selectedProductIds } = req.body || {};
+
+        const cartQuery = selectedProductIds && Array.isArray(selectedProductIds) && selectedProductIds.length > 0
+            ? { userId, productId: { in: selectedProductIds } }
+            : { userId };
+
         const cartItems = await prisma.cartItem.findMany({
-            where: { userId },
+            where: cartQuery,
             include: { product: true }
         });
 
@@ -31,7 +37,7 @@ export const createOrder = async (req, res) => {
                         create: cartItems.map(item => ({
                             productId: item.productId,
                             quantity: item.quantity,
-                            price: item.product.priceCents, // Fixed price when buy product
+                            price: item.product.priceCents,
                             variant: item.variant
                         }))
                     }
@@ -39,8 +45,8 @@ export const createOrder = async (req, res) => {
                 include: { items: true }
             });
 
-            // Remove everything from cart
-            await tx.cartItem.deleteMany({ where: { userId } });
+            // Remove selected cart items (or all if none selected)
+            await tx.cartItem.deleteMany({ where: cartQuery });
 
             return order;
         });
