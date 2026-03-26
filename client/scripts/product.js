@@ -60,7 +60,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (detailsEl) detailsEl.style.display = 'block';
 
     document.getElementById('product-title').textContent = product.name;
-    document.getElementById('product-category').textContent = product.category;
+    const categoryName = product.category?.name || product.category || 'Catégorie inconnue';
+    const categoryEl = document.getElementById('product-category');
+    if (categoryEl) {
+        categoryEl.textContent = categoryName;
+        categoryEl.style.display = categoryName ? 'inline-block' : 'none';
+    }
     document.getElementById('product-price').textContent = `€${(product.priceCents / 100).toFixed(2)}`;
 
     const avgScore = productReviews.length > 0

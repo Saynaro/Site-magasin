@@ -598,7 +598,7 @@ function injectAdminProductModal() {
             <form id="apm-form" style="display:flex; flex-direction:column; gap:10px; margin-top:15px;">
                 <input type="hidden" id="apm-id">
                 <input type="text" id="apm-name" placeholder="Name" required style="padding:10px; background:#f9f9f9; border:1px solid #ddd; color:#111;">
-                <input type="text" id="apm-slug" placeholder="Slug (unique)" required style="padding:10px; background:#f9f9f9; border:1px solid #ddd; color:#111;">
+                <input type="text" id="apm-slug" placeholder="Slug (unique)" style="padding:10px; background:#f9f9f9; border:1px solid #ddd; color:#111;">
                 <textarea id="apm-desc" placeholder="Description" style="padding:10px; height:80px; background:#f9f9f9; border:1px solid #ddd; color:#111;"></textarea>
                 <input type="number" id="apm-price" placeholder="Price in cents" required style="padding:10px; background:#f9f9f9; border:1px solid #ddd; color:#111;">
                 <input type="number" id="apm-cat" placeholder="Category ID (e.g. 1)" required style="padding:10px; background:#f9f9f9; border:1px solid #ddd; color:#111;">

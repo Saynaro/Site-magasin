@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                     await initCart();
 
                     setTimeout(() => {
-                        window.location.href = 'account.html'; // Redirect to account to see orders
+                        window.location.href = 'orders.html'; // Redirect to orders page after success
                     }, 2000);
                 }
             } catch (err) {
