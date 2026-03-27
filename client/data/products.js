@@ -62,415 +62,194 @@ export const products = [
             { label: 'Garantie', value: '1 an constructeur' },
         ]
     },
+    
     {
-        id: '1011',
-        name: 'MacBook Pro 16" M3 Max',
+        id: '2001',
+        name: 'iPhone 15 Pro',
         category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
+        subcategory: 'smartphone',
+        priceCents: 119900,
+        description: 'Smartphone haut de gamme avec un design en titane, des performances ultra rapides et un appareil photo professionnel.',
         images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
+            'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=800'
         ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        image: 'https://images.unsplash.com/photo-1695048133142-1a20484d2569?auto=format&fit=crop&q=80&w=800',
         variants: [
             {
                 label: 'Couleur',
                 type: 'color',
                 options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
+                    { value: 'Noir', color: '#1c1c1e' },
+                    { value: 'Bleu', color: '#3a4f7a' }
                 ]
             }
         ],
         characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1012',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1013',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1014',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1015',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1016',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1017',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
-        ]
-    }, {
-        id: '1018',
-        name: 'MacBook Pro 16" M3 Max',
-        category: 'Electronics',
-        subcategory: 'macbook',
-        priceCents: 349900,
-        description: 'L\'ordinateur portable ultime pour les pros. Performances époustouflantes, écran Retina XDR éblouissant, et une autonomie record pour travailler partout sans contrainte.',
-        images: [
-            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1611186871348-b1ce696e52c9?auto=format&fit=crop&q=80&w=800',
-            'https://images.unsplash.com/photo-1541807084-5c52b6b3adef?auto=format&fit=crop&q=80&w=800'
-        ],
-        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
-        variants: [
-            {
-                label: 'Couleur',
-                type: 'color',
-                options: [
-                    { value: 'Gris Sidéral', color: '#636366' },
-                    { value: 'Argent', color: '#e0e0e0' }
-                ]
-            },
-            {
-                label: 'Mémoire RAM',
-                type: 'text',
-                options: [
-                    { value: '36 Go' },
-                    { value: '48 Go' },
-                    { value: '128 Go' }
-                ]
-            },
-            {
-                label: 'Stockage',
-                type: 'text',
-                options: [
-                    { value: '512 Go' },
-                    { value: '1 To' },
-                    { value: '2 To' }
-                ]
-            }
-        ],
-        characteristics: [
-            { label: 'Processeur', value: 'Apple M3 Max' },
-            { label: 'RAM', value: '48 Go' },
-            { label: 'Stockage', value: '1 To SSD' },
-            { label: 'Écran', value: '16" Retina XDR, 3456x2234' },
-            { label: 'Autonomie', value: 'Jusqu\'à 22h' },
-            { label: 'Poids', value: '2.14 kg' },
-            { label: 'Ports', value: '3x Thunderbolt 4, HDMI, SD' },
-            { label: 'Garantie', value: '1 an constructeur' },
+            { label: 'Stockage', value: '256 Go' },
+            { label: 'Écran', value: '6.1 OLED' },
+            { label: 'Caméra', value: '48 MP' }
         ]
     },
+    {
+        id: '2002',
+        name: 'Nike Air Force 1',
+        category: 'Clothing',
+        subcategory: 'shoes',
+        priceCents: 10999,
+        description: 'Sneakers iconiques offrant confort et style intemporel.',
+        images: [
+            'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Taille',
+                type: 'text',
+                options: [
+                    { value: '40' },
+                    { value: '42' },
+                    { value: '44' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Matériau', value: 'Cuir' },
+            { label: 'Semelle', value: 'Caoutchouc' }
+        ]
+    },
+    {
+        id: '2003',
+        name: 'Pizza Margherita',
+        category: 'Food',
+        subcategory: 'meal',
+        priceCents: 1299,
+        description: 'Pizza classique italienne avec tomate, mozzarella et basilic frais.',
+        images: [
+            'https://images.unsplash.com/photo-1601924582975-7e8e7c5d5c68?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1601924582975-7e8e7c5d5c68?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Poids', value: '500g' },
+            { label: 'Calories', value: '1200 kcal' }
+        ]
+    },
+    {
+        id: '2004',
+        name: 'Sony WH-1000XM5',
+        category: 'Electronics',
+        subcategory: 'headphones',
+        priceCents: 39900,
+        description: 'Casque sans fil avec réduction de bruit exceptionnelle.',
+        images: [
+            'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1585386959984-a4155224a1ad?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Autonomie', value: '30h' },
+            { label: 'Bluetooth', value: '5.2' }
+        ]
+    },
+    {
+        id: '2005',
+        name: 'Levi’s 501 Jeans',
+        category: 'Clothing',
+        subcategory: 'pants',
+        priceCents: 8999,
+        description: 'Jean classique coupe droite, durable et confortable.',
+        images: [
+            'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1582418702059-97ebafb35d09?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Matière', value: 'Denim' }
+        ]
+    },
+    {
+        id: '2006',
+        name: 'Samsung 4K Smart TV',
+        category: 'Electronics',
+        subcategory: 'tv',
+        priceCents: 79900,
+        description: 'Télévision 4K avec HDR et Smart TV intégrée.',
+        images: [
+            'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1593784991095-a205069470b6?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Taille', value: '55 pouces' },
+            { label: 'Résolution', value: '4K' }
+        ]
+    },
+    {
+        id: '2007',
+        name: 'Croissant au beurre',
+        category: 'Food',
+        subcategory: 'bakery',
+        priceCents: 199,
+        description: 'Viennoiserie française croustillante et fondante.',
+        images: [
+            'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1509440159596-0249088772ff?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Type', value: 'Beurre' }
+        ]
+    },
+    {
+        id: '2008',
+        name: 'Adidas Hoodie',
+        category: 'Clothing',
+        subcategory: 'hoodie',
+        priceCents: 5999,
+        description: 'Sweat à capuche confortable pour un look casual.',
+        images: [
+            'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Matière', value: 'Coton' }
+        ]
+    },
+    {
+        id: '2009',
+        name: 'MacBook Air M2',
+        category: 'Electronics',
+        subcategory: 'laptop',
+        priceCents: 129900,
+        description: 'Ordinateur portable léger et performant avec puce Apple M2.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Processeur', value: 'M2' },
+            { label: 'RAM', value: '8 Go' }
+        ]
+    },
+    {
+        id: '2010',
+        name: 'Chocolate Donut',
+        category: 'Food',
+        subcategory: 'dessert',
+        priceCents: 299,
+        description: 'Donut moelleux nappé de chocolat.',
+        images: [
+            'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1551024601-bec78aea704b?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Saveur', value: 'Chocolat' }
+        ]
+    },
+
     {
         id: '102',
         name: 'Casque Audio Sony WH-1000XM5',
@@ -510,6 +289,519 @@ export const products = [
             { label: 'Pliable', value: 'Oui' },
             { label: 'Microphone', value: 'Intégré (8 micros)' },
             { label: 'Garantie', value: '1 an constructeur' },
+        ]
+    },
+    {
+    id: '2011',
+    name: 'Apple Watch Series 9',
+    category: 'Electronics',
+    subcategory: 'smartwatch',
+    priceCents: 45900,
+    description: 'Montre connectée avancée avec suivi santé, sport et notifications intelligentes.',
+    images: [
+        'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&q=80&w=800'
+    ],
+    image: 'https://images.unsplash.com/photo-1516574187841-cb9cc2ca948b?auto=format&fit=crop&q=80&w=800',
+    variants: [
+        {
+            label: 'Taille',
+            type: 'text',
+            options: [
+                { value: '41mm' },
+                { value: '45mm' }
+            ]
+        }
+    ],
+    characteristics: [
+        { label: 'Autonomie', value: '18h' },
+        { label: 'Étanchéité', value: 'Oui' }
+    ]
+},
+    {
+        id: '2012',
+        name: 'Oversize T-Shirt',
+        category: 'Clothing',
+        subcategory: 'tshirt',
+        priceCents: 1999,
+        description: 'T-shirt oversize tendance pour un look streetwear.',
+        images: [
+            'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Taille',
+                type: 'text',
+                options: [
+                    { value: 'S' },
+                    { value: 'M' },
+                    { value: 'L' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Matière', value: 'Coton 100%' }
+        ]
+    },
+    {
+        id: '2013',
+        name: 'Cheeseburger',
+        category: 'Food',
+        subcategory: 'fastfood',
+        priceCents: 899,
+        description: 'Burger savoureux avec steak, fromage fondu et sauce maison.',
+        images: [
+            'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1550547660-d9450f859349?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Calories', value: '850 kcal' }
+        ]
+    },
+    {
+        id: '2014',
+        name: 'Dell XPS 13',
+        category: 'Electronics',
+        subcategory: 'laptop',
+        priceCents: 139900,
+        description: 'Ultrabook compact avec écran InfinityEdge et performances solides.',
+        images: [
+            'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1593642632823-8f785ba67e45?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Écran', value: '13.4 pouces' },
+            { label: 'RAM', value: '16 Go' }
+        ]
+    },
+    {
+        id: '2015',
+        name: 'Puma Running Shoes',
+        category: 'Clothing',
+        subcategory: 'shoes',
+        priceCents: 7999,
+        description: 'Chaussures de running légères avec amorti optimal.',
+        images: [
+            'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1600185365926-3a2ce3cdb9eb?auto=format&fit=crop&q=80&w=800',
+        variants: [
+            {
+                label: 'Taille',
+                type: 'text',
+                options: [
+                    { value: '41' },
+                    { value: '42' },
+                    { value: '43' }
+                ]
+            }
+        ],
+        characteristics: [
+            { label: 'Usage', value: 'Running' }
+        ]
+    },
+    {
+        id: '2016',
+        name: 'Caesar Salad',
+        category: 'Food',
+        subcategory: 'salad',
+        priceCents: 1099,
+        description: 'Salade fraîche avec poulet, parmesan et sauce Caesar.',
+        images: [
+            'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1550304943-4f24f54ddde9?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Calories', value: '600 kcal' }
+        ]
+    },
+    {
+        id: '2017',
+        name: 'JBL Flip 6',
+        category: 'Electronics',
+        subcategory: 'speaker',
+        priceCents: 12999,
+        description: 'Enceinte Bluetooth portable avec son puissant et design étanche.',
+        images: [
+            'https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1589003077984-894e133dabab?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Autonomie', value: '12h' },
+            { label: 'Étanchéité', value: 'IP67' }
+        ]
+    },
+    {
+        id: '2018',
+        name: 'Denim Jacket',
+        category: 'Clothing',
+        subcategory: 'jacket',
+        priceCents: 6999,
+        description: 'Veste en jean intemporelle pour toutes les saisons.',
+        images: [
+            'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1541099649105-f69ad21f3246?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Matière', value: 'Denim' }
+        ]
+    },
+    {
+        id: '2019',
+        name: 'Spaghetti Carbonara',
+        category: 'Food',
+        subcategory: 'pasta',
+        priceCents: 1399,
+        description: 'Pâtes italiennes crémeuses avec lardons et parmesan.',
+        images: [
+            'https://images.unsplash.com/photo-1608756687911-aa1599ab3bd9?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1608756687911-aa1599ab3bd9?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Origine', value: 'Italie' }
+        ]
+    },
+    {
+        id: '2020',
+        name: 'Canon EOS R50',
+        category: 'Electronics',
+        subcategory: 'camera',
+        priceCents: 89900,
+        description: 'Appareil photo hybride compact idéal pour photo et vidéo.',
+        images: [
+            'https://images.unsplash.com/photo-1519183071298-a2962be96d23?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1519183071298-a2962be96d23?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Capteur', value: '24 MP' },
+            { label: 'Vidéo', value: '4K' }
+        ]
+    },
+    {
+    id: '2021',
+    name: 'AirPods Pro 2',
+    category: 'Electronics',
+    subcategory: 'earbuds',
+    priceCents: 27900,
+    description: 'Écouteurs sans fil avec réduction de bruit active et son immersif.',
+    images: [
+        'https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?auto=format&fit=crop&q=80&w=800'
+    ],
+    image: 'https://images.unsplash.com/photo-1588423771073-b8903fbb85b5?auto=format&fit=crop&q=80&w=800',
+    variants: [],
+    characteristics: [
+        { label: 'Autonomie', value: '6h' }
+    ]
+},
+    {
+        id: '2022',
+        name: 'Gaming Mouse RGB',
+        category: 'Electronics',
+        subcategory: 'accessories',
+        priceCents: 4999,
+        description: 'Souris gaming avec capteur haute précision et éclairage RGB.',
+        images: [
+            'https://images.unsplash.com/photo-1613141411244-0e4ac259d217?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1613141411244-0e4ac259d217?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'DPI', value: '16000' }
+        ]
+    },
+    {
+        id: '2023',
+        name: 'Mechanical Keyboard',
+        category: 'Electronics',
+        subcategory: 'accessories',
+        priceCents: 8999,
+        description: 'Clavier mécanique avec switches tactiles pour une frappe précise.',
+        images: [
+            'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1517336714731-489689fd1ca8?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Type', value: 'Mécanique' }
+        ]
+    },
+    {
+        id: '2024',
+        name: 'Protein Bar Chocolate',
+        category: 'Food',
+        subcategory: 'snack',
+        priceCents: 299,
+        description: 'Barre protéinée au chocolat idéale après le sport.',
+        images: [
+            'https://images.unsplash.com/photo-1604908176997-4313e9cfa8f1?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1604908176997-4313e9cfa8f1?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Protéines', value: '20g' }
+        ]
+    },
+    {
+        id: '2025',
+        name: 'Sushi Mix',
+        category: 'Food',
+        subcategory: 'japanese',
+        priceCents: 1899,
+        description: 'Assortiment de sushi frais avec saumon et thon.',
+        images: [
+            'https://images.unsplash.com/photo-1562158070-57d5a1e5f7f9?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1562158070-57d5a1e5f7f9?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Pièces', value: '12' }
+        ]
+    },
+    {
+        id: '2026',
+        name: 'Leather Belt',
+        category: 'Clothing',
+        subcategory: 'accessories',
+        priceCents: 2999,
+        description: 'Ceinture en cuir élégante pour un look classique.',
+        images: [
+            'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Matière', value: 'Cuir' }
+        ]
+    },
+    {
+        id: '2027',
+        name: 'Baseball Cap',
+        category: 'Clothing',
+        subcategory: 'hat',
+        priceCents: 1999,
+        description: 'Casquette tendance pour compléter votre tenue.',
+        images: [
+            'https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1588854337221-4cf9fa96059c?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Style', value: 'Casual' }
+        ]
+    },
+    {
+        id: '2028',
+        name: 'Winter Scarf',
+        category: 'Clothing',
+        subcategory: 'accessories',
+        priceCents: 2499,
+        description: 'Écharpe chaude et douce pour l’hiver.',
+        images: [
+            'https://images.unsplash.com/photo-1542060748-10c28b62716f?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1542060748-10c28b62716f?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Matière', value: 'Laine' }
+        ]
+    },
+    {
+        id: '2029',
+        name: 'Smart LED Bulb',
+        category: 'Electronics',
+        subcategory: 'smart_home',
+        priceCents: 1999,
+        description: 'Ampoule connectée avec contrôle via smartphone.',
+        images: [
+            'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Connectivité', value: 'WiFi' }
+        ]
+    },
+    {
+        id: '2030',
+        name: 'Backpack Urban',
+        category: 'Clothing',
+        subcategory: 'bag',
+        priceCents: 4999,
+        description: 'Sac à dos moderne pour le quotidien.',
+        images: [
+            'https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1509762774605-f07235a08f1f?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Capacité', value: '20L' }
+        ]
+    },
+    {
+        id: '2031',
+        name: 'Orange Juice Fresh',
+        category: 'Food',
+        subcategory: 'drink',
+        priceCents: 399,
+        description: 'Jus d’orange pressé frais et vitaminé.',
+        images: [
+            'https://images.unsplash.com/photo-1577801597644-d86a9e3d5a3b?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1577801597644-d86a9e3d5a3b?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Volume', value: '500ml' }
+        ]
+    },
+    {
+        id: '2032',
+        name: 'Espresso Coffee',
+        category: 'Food',
+        subcategory: 'drink',
+        priceCents: 199,
+        description: 'Café espresso intense et aromatique.',
+        images: [
+            'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Type', value: 'Arabica' }
+        ]
+    },
+    {
+        id: '2033',
+        name: 'Gaming Chair',
+        category: 'Electronics',
+        subcategory: 'furniture',
+        priceCents: 199900,
+        description: 'Chaise ergonomique pour longues sessions de jeu.',
+        images: [
+            'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1587202372775-e229f172b9d7?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Ergonomie', value: 'Oui' }
+        ]
+    },
+    {
+        id: '2034',
+        name: 'Yoga Mat',
+        category: 'Clothing',
+        subcategory: 'sport',
+        priceCents: 2999,
+        description: 'Tapis de yoga antidérapant et confortable.',
+        images: [
+            'https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Épaisseur', value: '6mm' }
+        ]
+    },
+    {
+        id: '2035',
+        name: 'Bluetooth Tracker',
+        category: 'Electronics',
+        subcategory: 'gadgets',
+        priceCents: 2499,
+        description: 'Localisez facilement vos objets avec ce tracker Bluetooth.',
+        images: [
+            'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1611078489935-0cb964de46d6?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Portée', value: '50m' }
+        ]
+    },
+    {
+        id: '2036',
+        name: 'Ice Cream Vanilla',
+        category: 'Food',
+        subcategory: 'dessert',
+        priceCents: 599,
+        description: 'Glace vanille onctueuse et rafraîchissante.',
+        images: [
+            'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1497034825429-c343d7c6a68f?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Saveur', value: 'Vanille' }
+        ]
+    },
+    {
+        id: '2037',
+        name: 'Wireless Charger Pad',
+        category: 'Electronics',
+        subcategory: 'accessories',
+        priceCents: 1999,
+        description: 'Chargeur sans fil rapide pour smartphones compatibles.',
+        images: [
+            'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Puissance', value: '15W' }
+        ]
+    },
+    {
+        id: '2038',
+        name: 'Slim Fit Shirt',
+        category: 'Clothing',
+        subcategory: 'shirt',
+        priceCents: 3499,
+        description: 'Chemise élégante coupe slim pour un style moderne.',
+        images: [
+            'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Coupe', value: 'Slim' }
+        ]
+    },
+    {
+        id: '2039',
+        name: 'Trail Running Shoes',
+        category: 'Clothing',
+        subcategory: 'shoes',
+        priceCents: 11999,
+        description: 'Chaussures robustes pour trail et terrains difficiles.',
+        images: [
+            'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1608231387042-66d1773070a5?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Usage', value: 'Trail' }
+        ]
+    },
+    {
+        id: '2040',
+        name: 'Chocolate Cake',
+        category: 'Food',
+        subcategory: 'dessert',
+        priceCents: 1599,
+        description: 'Gâteau au chocolat riche et fondant.',
+        images: [
+            'https://images.unsplash.com/photo-1605475128023-3b5c1b79d4a1?auto=format&fit=crop&q=80&w=800'
+        ],
+        image: 'https://images.unsplash.com/photo-1605475128023-3b5c1b79d4a1?auto=format&fit=crop&q=80&w=800',
+        variants: [],
+        characteristics: [
+            { label: 'Portions', value: '6' }
         ]
     },
     {

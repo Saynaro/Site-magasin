@@ -9,8 +9,8 @@ const startServer = async () => {
         await connectDB();
 
         // Start Express
-        const server = app.listen(PORT, () => {
-            console.log(`Server is running on http://localhost:3000`);
+        const server = app.listen(PORT, '0.0.0.0', () => {
+            console.log(`Server is running on PORT: ${PORT}`);
         });
 
         // Handling shutdown signals (Ctrl+C / Docker stop)
