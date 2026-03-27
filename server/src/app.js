@@ -17,10 +17,14 @@ const app = express()
 
 app.use(cookieParser());
 
+
 app.use(cors({
-    origin: process.env.NODE_ENV === 'production' 
-        ? false // In production,  If front and back in one domain, we put "false" or site adresse
-        : ["http://127.0.0.1:5500","http://127.0.0.1:5501", "http://localhost:5500"], 
+    origin: [
+        'https://site-magasin-pkhwrl420-saynaros-projects.vercel.app', // Твой адрес на Vercel
+        'http://127.0.0.1:5500', 
+        'http://127.0.0.1:5501', 
+        'http://localhost:5500'
+    ],
     credentials: true,
 }));
 
