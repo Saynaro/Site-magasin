@@ -7,7 +7,7 @@
 import { refreshCurrentUser, preventHashNavigation } from './login.js';
 import { cart, initCart, addToCart, updateQuantityInCart } from '../data/cart.js';
 import { initSearch } from './search.js';
-import { fetchAPI, API_URL } from './api.js';
+import { fetchAPI } from './api.js';
 
 console.log('main.js executing', new Date().toISOString());
 window.addEventListener('beforeunload', () => {

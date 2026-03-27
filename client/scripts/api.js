@@ -1,7 +1,7 @@
 export const API_URL =
-    window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+    (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
         ? `http://${window.location.hostname}:3000`
-        : '';
+        : 'https://magasinproject.onrender.com/');
 
 /**
  * Helper to make API calls automatically attaching credentials (cookies).
