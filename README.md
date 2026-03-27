@@ -25,7 +25,7 @@ Saynaro Store is a full-stack, responsive e-commerce application designed for a 
 - **📦 Order Tracking**: Dedicated system to track order status and view history.
 - **👤 Account Dashboard**: Manage profile settings, security (password updates), and view past orders.
 - **📱 Fully Responsive**: Optimized for Mobile, Tablet, and Desktop views with a focus on UX.
-
+- **⚙️ Admin Panel**: A dedicated panel to manage products, orders, and users in the store.
 ---
 
 ## 🚀 Tech Stack
