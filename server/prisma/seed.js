@@ -38,10 +38,16 @@ async function main() {
 
   // 1. Create categories and subcategories
   console.log('--- Seeding Categories ---');
-  const categoriesMap = new Map(); // name -> id
-  const subCategoriesMap = new Map(); // name -> id
+  const categoriesMap = new Map();   // category name -> id
+  const subCategoriesMap = new Map(); // "category/subcategory" -> id
 
   for (const p of products) {
+    // Skip products without a category
+    if (!p.category) {
+      console.warn(`Warning: product id=${p.id} has no category, skipping category seeding for it.`);
+      continue;
+    }
+
     if (!categoriesMap.has(p.category)) {
       const cat = await prisma.category.upsert({
         where: { name: p.category },
@@ -52,36 +58,61 @@ async function main() {
       console.log(`Upserted category: ${p.category}`);
     }
     
-    if (p.subcategory && !subCategoriesMap.has(p.subcategory)) {
-      const parentId = categoriesMap.get(p.category);
-      const subCat = await prisma.category.upsert({
-        where: { name: p.subcategory },
-        update: {},
-        create: { name: p.subcategory, parentId },
-      });
-      subCategoriesMap.set(p.subcategory, subCat.id);
-      console.log(`Upserted subcategory: ${p.subcategory}`);
+    if (p.subcategory) {
+      const subKey = `${p.category}/${p.subcategory}`;
+
+      if (!subCategoriesMap.has(subKey)) {
+        const parentId = categoriesMap.get(p.category);
+
+        // Subcategory name might already exist in DB under a different parent — use upsert safely
+        let subCat;
+        const existing = await prisma.category.findUnique({ where: { name: p.subcategory } });
+
+        if (existing) {
+          subCat = existing;
+        } else {
+          subCat = await prisma.category.create({
+            data: { name: p.subcategory, parentId },
+          });
+        }
+
+        subCategoriesMap.set(subKey, subCat.id);
+        console.log(`Upserted subcategory: ${p.subcategory} (under ${p.category})`);
+      }
     }
   }
 
+  // Clear data that depends on products (but keep orders safe)
+console.log('--- Clearing dependent data ---');
+await prisma.review.deleteMany({});
+await prisma.cartItem.deleteMany({});
+await prisma.orderItem.deleteMany({});
+await prisma.order.deleteMany({});
   // 2. Insert Products
   console.log('--- Seeding Products ---');
   for (const p of products) {
     const slug = slugify(p.name, p.id);
-    const categoryId = p.subcategory 
-      ? subCategoriesMap.get(p.subcategory) 
+
+    const subKey = `${p.category}/${p.subcategory}`;
+    const categoryId = p.subcategory
+      ? subCategoriesMap.get(subKey)
       : categoriesMap.get(p.category);
+
+    if (!categoryId) {
+      console.warn(`Warning: could not resolve categoryId for product id=${p.id}, skipping.`);
+      continue;
+    }
 
     await prisma.product.upsert({
       where: { id: p.id },
       update: {
         slug,
         name: p.name,
-        description: p.description,
+        description: p.description || '',
         priceCents: p.priceCents,
         categoryId,
-        image: p.image,
-        images: p.images,
+        image: p.image || '',
+        images: p.images || [],
         variants: p.variants || [],
         characteristics: p.characteristics || [],
       },
@@ -89,11 +120,11 @@ async function main() {
         id: p.id,
         slug,
         name: p.name,
-        description: p.description,
+        description: p.description || '',
         priceCents: p.priceCents,
         categoryId,
-        image: p.image,
-        images: p.images,
+        image: p.image || '',
+        images: p.images || [],
         variants: p.variants || [],
         characteristics: p.characteristics || [],
       },
@@ -106,7 +137,6 @@ async function main() {
   const userMap = new Map(); // original id (e.g. 'u1') -> db id (Int)
   
   for (const u of rawUsers) {
-    // Generate dummy data since schema requires email, password, etc.
     const parts = u.name.split(' ');
     const firstName = parts[0] || 'Unknown';
     const lastName = parts.slice(1).join(' ') || '';
@@ -121,7 +151,7 @@ async function main() {
       },
       create: {
         email,
-        password: 'hashedpassword123', // Dummy password
+        password: 'hashedpassword123',
         name: firstName,
         surname: lastName,
         avatar: u.avatar,
@@ -134,14 +164,10 @@ async function main() {
 
   // 4. Insert Reviews
   console.log('--- Seeding Reviews ---');
-  // Since review has no unique criteria naturally, we'll clear them first or just create them if they don't exist.
-  // Actually, let's just create them. If we re-run, it might duplicate unless we check.
-  // We can delete all reviews and re-insert them to be idempotent.
   await prisma.review.deleteMany({});
   
   for (const r of rawReviews) {
     const dbUserId = userMap.get(r.userId);
-    // Be sure the product exists
     const productExists = products.find(p => p.id === r.itemId);
 
     if (dbUserId && productExists) {
@@ -155,6 +181,8 @@ async function main() {
         }
       });
       console.log(`Created review for product ${r.itemId}`);
+    } else {
+      console.warn(`Skipping review: userId=${r.userId} or productId=${r.itemId} not found.`);
     }
   }
 
@@ -177,9 +205,7 @@ async function main() {
 
   await prisma.banner.deleteMany({});
   for (const banner of dummyBanners) {
-    await prisma.banner.create({
-      data: banner
-    });
+    await prisma.banner.create({ data: banner });
     console.log(`Created banner: ${banner.title}`);
   }
 
