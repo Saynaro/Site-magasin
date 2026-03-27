@@ -19,13 +19,13 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
-    'https://site-magasin.vercel.app/',                 // Main adresse
+    'https://site-magasin.vercel.app',                  // Main address (removed trailing slash)
     /\.vercel\.app$/,                                   // All Vercel preview versions
     /\.github\.io$/,                                    // GitHub Pages
     'http://localhost:5500', 
     'http://127.0.0.1:5500',
     'http://localhost:3000',
-    'http://localhost:5173'                                        // Vite port standart
+    'http://localhost:5173'                             // Vite port standard
 ];
 
 app.use(cors({

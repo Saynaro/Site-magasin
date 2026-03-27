@@ -115,8 +115,8 @@ const logout = async (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(0),   // time now
-        secure: process.env.NODE_ENV === "production",
-        sameSite: "lax",
+        secure: process.env.NODE_ENV === "production" || true,
+        sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
 
@@ -167,4 +167,19 @@ const updateMe = async (req, res) => {
     }
 };
 
-export { register, login, logout, getMe, updateMe };
+
+//////// GET CSRF TOKEN ///////
+const getCsrfToken = async (req, res) => {
+    try {
+        const token = await generateCSRFToken();
+        res.status(200).json({
+            status: "success",
+            data: { csrfToken: token }
+        });
+    } catch (error) {
+        console.error("CSRF TOKEN ERROR:", error);
+        res.status(500).json({ error: "Could not generate CSRF token" });
+    }
+};
+
+export { register, login, logout, getMe, updateMe, getCsrfToken };

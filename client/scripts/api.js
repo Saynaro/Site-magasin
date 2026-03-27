@@ -6,7 +6,7 @@ export const API_URL =
             : 'https://magasinproject.onrender.com';
 
 /**
- * Helper to make API calls automatically attaching credentials (cookies).
+ * Helper to make API calls automatically attaching credentials (cookies)
  * Handles JSON parsing and error throwing on bad status.
  */
 export async function fetchAPI(endpoint, options = {}) {
