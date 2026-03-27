@@ -864,7 +864,10 @@ header {
         margin-bottom: 10px;
     }
 
-
+    .quantity {
+        margin-bottom: 5px;
+        margin-left: 15px;
+    }
 
     /* Toggle visibility via .active class on mobile */
     .dropdown-menu.active {
@@ -966,5 +969,8 @@ header {
     #cart-toast-container {
         bottom: 20px;
         width: auto;
+    }
+    .quantity {
+        margin-bottom: 3px;
     }
 }
