@@ -15,6 +15,8 @@ Saynaro Store is a full-stack, responsive e-commerce application designed for a 
 > Since this project is hosted on **Render (Free Tier)**, the server may go into "sleep mode" after inactivity.
 > **Please wait approximately 30-60 seconds** for the first request to process while the server spins back up.
 
+🌐**Live Demo**: [site-magasin.vercel.app](https://site-magasin.vercel.app)
+
 ---
 
 ## ✨ Key Features
