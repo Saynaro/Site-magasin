@@ -98,6 +98,7 @@
     transition: background 0.2s;
 }
 .btn-primary:hover { background: #f7ca00; }
+
 .btn-secondary {
     background: transparent;
     color: #333;
