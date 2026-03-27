@@ -82,16 +82,17 @@ Saynaro Store is a full-stack, responsive e-commerce application designed for a 
 ## 📁 Project Structure
 
 ```text
-├── client/                 # Frontend assets
-│   ├── scripts/            # Vanilla JS logic
-│   ├── styles/             # Modular CSS files
-│   ├── data/               # Static icons/assets
-│   └── *.html              # Page templates (index, cart, product, etc.)
-├── server/                 # Backend logic
-│   ├── prisma/             # Schema & Migrations
-│   ├── src/                # Express controllers & routes
-│   └── package.json        # Dependencies
-└── docker-compose.yml      # Containerization setup
+├── client/                   # Frontend assets
+│   ├── scripts/              # Vanilla JS logic
+│   ├── styles/               # Modular CSS files
+│   ├── data/                 # Static arrays
+│   └── *.html                # Page templates (index, cart, product, etc.)
+├── server/                   # Backend logic
+│   ├── prisma/               # Schema & Migrations
+│   ├── src/                  # Express controllers & routes
+│   ├── package.json          # Dependencies
+│   └── docker-compose.yml    # Containerization setup
+└── README.md     
 ```
 
 ---
