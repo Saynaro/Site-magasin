@@ -68,7 +68,10 @@
     </footer>
 
     <!-- Include login modal script for header user icon -->
-    <script type="module" src="./scripts/login.js"></script>
+    <script>
+window.API_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://' + window.location.hostname + ':3000' : 'https://magasinproject.onrender.com');
+</script>
+<script type="module" src="./scripts/login.js"></script>
     <script type="module" src="./scripts/payment.js"></script>
 </body>
 </html>
