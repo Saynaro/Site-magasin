@@ -228,9 +228,9 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // // Auto-check auth on load to set up window.currentUser globally
-    // (async () => {
-    //     await refreshCurrentUser();
-    // })();
+    (async () => {
+        await refreshCurrentUser();
+    })();
 });
 
 

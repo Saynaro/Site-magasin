@@ -115,7 +115,7 @@ const logout = async (req, res) => {
     res.cookie("jwt", "", {
         httpOnly: true,
         expires: new Date(0),   // time now
-        secure: process.env.NODE_ENV === "production" || true,
+        secure: process.env.NODE_ENV === "production",
         sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
     });
 
