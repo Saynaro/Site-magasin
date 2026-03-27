@@ -53,7 +53,7 @@
 window.API_URL = window.API_URL || (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://' + window.location.hostname + ':3000' : 'https://magasinproject.onrender.com');
 </script>
 <script type="module" src="./scripts/login.js"></script>
-    <script>
+    <script type="module">
         import { cart, initCart } from './data/cart.js';
         await initCart();
         // Update cart quantity
