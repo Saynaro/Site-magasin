@@ -1,6 +1,6 @@
 // account.js
 import { refreshCurrentUser } from './login.js';
-import { cart } from '../data/cart.js';
+import { cart, initCart } from '../data/cart.js';
 import { fetchAPI } from './api.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -13,11 +13,13 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const { name, surname, email, role, avatar } = window.currentUser;
 
+    await initCart();
     // Update cart quantity
     let total = 0;
     cart.forEach(c => total += c.quantity);
     const qEl = document.querySelector('.quantity');
     if (qEl) qEl.innerHTML = total;
+
 
     const nameEl = document.getElementById('user-name');
     const emailEl = document.getElementById('user-email');

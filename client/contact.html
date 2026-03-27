@@ -54,7 +54,10 @@ window.API_URL = window.API_URL || (window.location.hostname === 'localhost' || 
 </script>
 <script type="module" src="./scripts/login.js"></script>
     <script>
-        import { cart } from './scripts/data/cart.js';
+        import { cart, initCart } from './scripts/data/cart.js';
+        await initCart();
+        // Update cart quantity
+        
         let cartTotal = 0;
         cart.forEach(c => cartTotal += c.quantity);
         const qEl = document.querySelector('.quantity');

@@ -1,5 +1,5 @@
 // orders.js
-
+import { cart, initCart } from '../data/cart.js';
 import { refreshCurrentUser, preventHashNavigation } from './login.js';
 import { fetchAPI } from './api.js';
 
@@ -27,6 +27,13 @@ document.addEventListener('DOMContentLoaded', async () => {
         window.location.href = 'index.html';
         return;
     }
+
+    await initCart();
+    // Update cart quantity
+    let total = 0;
+    cart.forEach(c => total += c.quantity);
+    const qEl = document.querySelector('.quantity');
+    if (qEl) qEl.innerHTML = total;
 
     const listContainer = document.getElementById('orders-list');
     if (!listContainer) return;
