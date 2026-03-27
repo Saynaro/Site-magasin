@@ -1,6 +1,7 @@
 import express from 'express';
-import cors from 'cors';
 import cookieParser from "cookie-parser";
+import cors from 'cors';
+
 import { config } from "dotenv";
 import { prisma } from './config/db.js';
 
@@ -19,6 +20,7 @@ app.use(cookieParser());
 
 
 const allowedOrigins = [
+    'https://site-magasin-pkhwrl420-saynaros-projects.vercel.app',
     'https://site-magasin.vercel.app',                  // Main address (removed trailing slash)
     /\.vercel\.app$/,                                   // All Vercel preview versions
     /\.github\.io$/,                                    // GitHub Pages
