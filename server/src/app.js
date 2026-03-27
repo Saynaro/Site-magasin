@@ -18,14 +18,39 @@ const app = express()
 app.use(cookieParser());
 
 
+const allowedOrigins = [
+    'https://site-magasin.vercel.app/',                 // Main adresse
+    /\.vercel\.app$/,                                   // All Vercel preview versions
+    /\.github\.io$/,                                    // GitHub Pages
+    'http://localhost:5500', 
+    'http://127.0.0.1:5500',
+    'http://localhost:3000',
+    'http://localhost:5173'                                        // Vite port standart
+];
+
 app.use(cors({
-    origin: [
-        'https://site-magasin-pkhwrl420-saynaros-projects.vercel.app', // Твой адрес на Vercel
-        'http://127.0.0.1:5500', 
-        'http://127.0.0.1:5501', 
-        'http://localhost:5500'
-    ],
+    origin: function (origin, callback) {
+        // ALLOW METHODS WITHOUT ORIGIN
+        if (!origin) return callback(null, true);
+        
+        const isAllowed = allowedOrigins.some(pattern => {
+            return pattern instanceof RegExp ? pattern.test(origin) : pattern === origin;
+        });
+
+        if (isAllowed) {
+            callback(null, true);
+        } else {
+            console.log("CORS blocked origin:", origin); // IF ADRESSE CHANGE
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
+    // ADD ALL THE STANDART METHODS
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'HEAD', 'OPTIONS'],
+    // ADD STANDART AND CUSTOM HEADERS
+    allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With', 'Accept'],
+    // FOR HOW MANY SECOND BROWSER CAN "CASH" this permission
+    maxAge: 86400 
 }));
 
 
